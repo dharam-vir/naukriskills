@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react'
 import placeholder from "../../assets/images/user-avatar-placeholder.png";
+import { Link } from 'react-router-dom';
 
 const Myprofile = () => {
     return (
@@ -91,7 +92,7 @@ const Myprofile = () => {
                                     </div>
                                 </div>
                             </div>
-                            <a href="javascript:void(0);" className="button ripple-effect big margin-top-10 margin-bottom-20">Save Changes</a>
+                            <Link to="" className="button ripple-effect big margin-top-10 margin-bottom-20">Save Changes</Link>
                         </div>
                     </div>
                 </div>
@@ -121,7 +122,7 @@ const Myprofile = () => {
                                     </div>
                                 </div>
                             </div>
-                            <a href="javascript:void(0);" className="button ripple-effect big margin-top-10">Changes Password</a>
+                            <Link to="" className="button ripple-effect big margin-top-10">Changes Password</Link>
                         </div>
                     </div>
                 </div>

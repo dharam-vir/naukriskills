@@ -1,56 +1,8 @@
-<<<<<<< HEAD
 @charset "UTF-8";
 @import url('./assets/css/bootstrap-grid.css');
 @import url('./assets/css/icons.css');
 @import url('https://fonts.googleapis.com/css?family=Nunito:300,400,600,700,800&amp;display=swap');
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800&amp;display=swap');
-
-/* -------------------------------------------------------------- */
-/* Table of Contents
------------------------------------------------------------------
-#. General Styles
-#. Header Style
-#. Header Notifications Style
-#. User Menu Style
-#. Navigation Style
-#. Sticky Header Style
-#. Transparent Header Style
-#. Mobile Menu Style
-#. Footer Style
-#. Pagination Style
-#. Sidebar Style
-#. Notify Box Style
-#. Titlebar Style
-#. Single Page Header Style
-#. Blog Post Style
-#. Contact Page Style
-#. Job Listing List Style
-#. Job Listing Grid Style
-#. Browse Companies Style
-#. Buttons Style
-#. List Style
-#. Notification Boxes Style
-#. Tables Style
-#. Accordion Style
-#. Tabs Style
-#. Share Buttons Style
-#. Verified Badge Style
-#. Star Rating Style
-#. Leave Rating Stars Style
-#. Intro Banner Style
-#. Category Boxes Style
-#. Pricing Plans Style
-#. Checkout Page Style
-#. Testimonials Style
-#. Magnific Popup Style
-#. Popup Tabs Style
-#. Bootstrap Select Style
-#. Single Job Page Style
-#. Dashboard Navigation Menu Style
-#. Dashboard Elements Style
-#. Dashboard Invoices List
-#. Loader Css
-*/ 
 
 /* ---------------------------------- */
 /* General Styles
@@ -18073,18 +18025,3 @@ a.apply-now-button:hover {
 		transform:translateY(0)
 	}
 }
-=======
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}
->>>>>>> 1940ff8529de678b03eebe85d12aafcfc1dc35c8

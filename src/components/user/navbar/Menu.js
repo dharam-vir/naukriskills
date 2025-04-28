@@ -3,10 +3,9 @@ import { Link, useLocation } from 'react-router-dom';
 import useravatar from "../../../assets/images/user-avatar-placeholder.png";
 
 const Menu = () => {
-  const location = useLocation();
+    const location = useLocation();
   const [activeMenu, setActiveMenu] = useState(false);
 
-  // Auto-expand submenu if current route is under freelancer section
   useEffect(() => {
     const freelancerPaths = [
       "/users/freelancer-manage-tasks-list",
@@ -19,11 +18,7 @@ const Menu = () => {
     }
   }, [location.pathname]);
 
-  const toggleSubMenu = (e) => {
-    e.preventDefault(); // prevent navigation
-    setActiveMenu(!activeMenu);
-  };
-
+ 
   return (
     <Fragment>
       <div className="utf-dashboard-sidebar-item">
@@ -35,18 +30,18 @@ const Menu = () => {
                   <span className="utf-hamburger-inner-item" />
                 </span>
               </span>
-              <span className="trigger-title">Dashboard Navigation Menu</span>
+              <span className="trigger-title">Dashboard Navigation Menu</span> 
             </Link>
 
             <div className="utf-dashboard-nav">
               <div className="utf-dashboard-nav-inner">
                 <div className="dashboard-profile-box">
                   <span className="avatar-img">
-                    <img alt="photo" src={useravatar} className="photo" />
+                    <img alt={useravatar} src={useravatar} className="photo" />
                   </span>
                   <div className="user-profile-text">
                     <span className="fullname">John Williams</span>
-                    <span className="user-role">Software Engineer</span>
+                    <span className="user-role">Software Engineer</span> 
                   </div>
                 </div>
                 <div className="clearfix" />
@@ -69,26 +64,8 @@ const Menu = () => {
                   </li>
 
                   {/* Freelancer Submenu */}
-                  <li className={activeMenu ? "active-submenu" : ""}>
-                    <Link to="#" onClick={toggleSubMenu}>
-                      <i className="icon-line-awesome-file-text" /> Freelancer Tasks
-                    </Link>
-                    {activeMenu && (
-                      <ul className="dropdown-nav">
-                        <li className={location.pathname === "/users/freelancer-manage-tasks-list" ? "active" : ""}>
-                          <Link to="/users/freelancer-manage-tasks-list"><i className="icon-feather-chevron-right" /> Freelancer Manage Tasks</Link>
-                        </li>
-                        <li className={location.pathname === "/users/manage-bidders-list" ? "active" : ""}>
-                          <Link to="/users/manage-bidders-list"><i className="icon-feather-chevron-right" /> Freelancer Manage Bidders</Link>
-                        </li>
-                        <li className={location.pathname === "/users/freelancer-active-bids" ? "active" : ""}>
-                          <Link to="/users/freelancer-active-bids"><i className="icon-feather-chevron-right" /> Freelancer Active Bids</Link>
-                        </li>
-                        <li className={location.pathname === "/users/freelancer-add-post-bids" ? "active" : ""}>
-                          <Link to="/users/freelancer-add-post-bids"><i className="icon-feather-chevron-right" /> Freelancer Post Bids</Link>
-                        </li>
-                      </ul>
-                    )}
+                  <li className={activeMenu ? "active-submenu" : ""}>                    
+            
                   </li>
 
                   <li className={location.pathname === "/users/reviews" ? "active" : ""}>
@@ -101,14 +78,13 @@ const Menu = () => {
                     <Link to="/users/dashboard"><i className="icon-material-outline-power-settings-new" /> Logout</Link>
                   </li>
                 </ul>
-
               </div>
             </div>
           </div>
         </div>
       </div>
     </Fragment>
-  );
-};
+  )
+}
 
-export default Menu;
+export default Menu
