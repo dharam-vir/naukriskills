@@ -1,9 +1,6 @@
 import React, { Fragment } from 'react'
 import placeholder from "../../assets/images/user-avatar-placeholder.png";
-<<<<<<< HEAD
 import { Link } from 'react-router-dom';
-=======
->>>>>>> ef5733c (Initial commit)
 
 const Myprofile = () => {
     return (
@@ -95,11 +92,7 @@ const Myprofile = () => {
                                     </div>
                                 </div>
                             </div>
-<<<<<<< HEAD
                             <Link to="" className="button ripple-effect big margin-top-10 margin-bottom-20">Save Changes</Link>
-=======
-                            <a href="javascript:void(0);" className="button ripple-effect big margin-top-10 margin-bottom-20">Save Changes</a>
->>>>>>> ef5733c (Initial commit)
                         </div>
                     </div>
                 </div>
@@ -129,11 +122,7 @@ const Myprofile = () => {
                                     </div>
                                 </div>
                             </div>
-<<<<<<< HEAD
                             <Link to="" className="button ripple-effect big margin-top-10">Changes Password</Link>
-=======
-                            <a href="javascript:void(0);" className="button ripple-effect big margin-top-10">Changes Password</a>
->>>>>>> ef5733c (Initial commit)
                         </div>
                     </div>
                 </div>
