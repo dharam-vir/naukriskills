@@ -2,10 +2,7 @@
 @import url('./assets/css/bootstrap-grid.css');
 @import url('./assets/css/icons.css');
 @import url('https://fonts.googleapis.com/css?family=Nunito:300,400,600,700,800&amp;display=swap');
-@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800&amp;display=swap');
-
-<<<<<<< HEAD
-=======
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800&amp;display=swap'); 
 /* -------------------------------------------------------------- */
 /* Table of Contents
 -----------------------------------------------------------------
@@ -51,10 +48,7 @@
 #. Dashboard Elements Style
 #. Dashboard Invoices List
 #. Loader Css
-*/ 
-
->>>>>>> ef5733c (Initial commit)
-/* ---------------------------------- */
+*/ /* ---------------------------------- */
 /* General Styles
 ------------------------------------- */
 input, input[type="text"], input[type="password"], input[type="email"], input[type="number"], textarea, select {

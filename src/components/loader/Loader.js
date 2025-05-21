@@ -15,8 +15,5 @@ export default function Loader({ showLoader }) {
     else {
         return
     }
-<<<<<<< HEAD
-=======
-
->>>>>>> ef5733c (Initial commit)
+    
 }
