@@ -127,7 +127,7 @@ const Myprofile = () => {
                     </div>
                 </div>
             </div>
-        </Fragment>
+        </Fragment> 
     )
 }
 

@@ -15,5 +15,5 @@ export default function Loader({ showLoader }) {
     else {
         return
     }
-    
 }
+

@@ -1,82 +1,121 @@
-import React, { Fragment } from 'react'
-import footer_logo from '../../assets/images/footer_logo.png'
-import { Link } from 'react-router-dom'
+import React, { Fragment } from 'react';
+import { Link } from 'react-router-dom';
+// import axios from 'axios';
+import footer_logo from '../../assets/images/footer_logo.png';
+
+const footerLinks = [
+  {
+    title: 'Job Categories',
+    links: [
+      { name: 'Developement', path: '/jobs/development' },
+      { name: 'Designing', path: '/jobs/design' },
+      { name: 'Marketing', path: '/jobs/marketing' },
+      { name: 'Data Analytics', path: '/jobs/data-analytics' },
+      { name: 'Post New Job', path: '/post-job' },
+    ],
+  },
+  {
+    title: 'Job Type',
+    links: [
+      { name: 'Work from Home', path: '/jobs/remote' },
+      { name: 'Internship Job', path: '/jobs/internship' },
+      { name: 'Freelancer Job', path: '/jobs/freelance' },
+      { name: 'Part Time Job', path: '/jobs/part-time' },
+      { name: 'Full Time Job', path: '/jobs/full-time' },
+    ],
+  },
+  {
+    title: 'Resources',
+    links: [
+      { name: 'My Account', path: '/my-account' },
+      { name: 'Support', path: '/support' },
+      { name: 'How It Works', path: '/how-it-works' },
+      { name: 'Underwriting', path: '/underwriting' },
+      { name: 'Employers', path: '/employers' },
+    ],
+  },
+  {
+    title: 'Quick Links',
+    links: [
+      { name: 'Jobs Listing', path: '/jobs' },
+      { name: 'About Us', path: '/about-us' },
+      { name: 'Contact Us', path: '/contact-us' },
+      { name: 'Privacy Policy', path: '/privacy-policy' },
+      { name: 'Term & Condition', path: '/terms-condition' },
+    ],
+  },
+];
 
 const Footer = () => {
+  // const [footerData, setFooterData] = useState({
+  //   logo: '',
+  //   description: '',
+  // });
+
+  // useEffect(() => {
+  //   const fetchFooterData = async () => {
+  //     try {
+  //       const res = await axios.get('/api/footer-content');
+  //       setFooterData(res.data);
+  //     } catch (err) {
+  //       console.error('Failed to fetch footer data:', err);
+  //     }
+  //   };    
+  //   fetchFooterData();
+  // }, []);
+
   return (
     <Fragment>
-      <div className="clearfix"></div>
+      <div className="clearfix" />
       <div id="footer">
         <div className="utf-footer-section-item-block">
           <div className="container">
             <div className="row">
               <div className="col-xl-4 col-md-12">
                 <div className="utf-footer-item-links">
-                  <Link to="/"><img className="footer-logo" src={footer_logo} alt="footer_logo" /></Link>
-                  <p>Lorem Ipsum is simply dummy text of printing and type setting industry. Lorem Ipsum been industry standard dummy text ever since, when unknown printer took a galley type scrambled.</p>
+                  <Link to="/">
+                    <img
+                      className="footer-logo"
+                      src={footer_logo}
+                      alt="footer_logo"
+                    />
+                  </Link>
+                  <p>{'Loading footer description...'}</p>
                 </div>
               </div>
-              <div className="col-xl-2 col-md-3 col-sm-6">
-                <div className="utf-footer-item-links">
-                  <h3>Job Categories</h3>
-                  <ul>
-                    <li><Link to="jobs-list-layout-leftside.html"><i className="icon-feather-chevron-right" /> <span>Developement</span></Link></li>
-                    <li><Link to="jobs-list-layout-leftside.html"><i className="icon-feather-chevron-right" /> <span>Designing</span></Link></li>
-                    <li><Link to="jobs-list-layout-leftside.html"><i className="icon-feather-chevron-right" /> <span>Marketing</span></Link></li>
-                    <li><Link to="jobs-list-layout-leftside.html"><i className="icon-feather-chevron-right" /> <span>Data Analytics</span></Link></li>
-                    <li><Link to="#"><i className="icon-feather-chevron-right" /> <span>Post New Job</span></Link></li>
-                  </ul>
+
+              {footerLinks.map((section, index) => (
+                <div key={index} className="col-xl-2 col-md-3 col-sm-6">
+                  <div className="utf-footer-item-links">
+                    <h3>{section.title}</h3>
+                    <ul>
+                      {section.links.map((link, i) => (
+                        <li key={i}>
+                          <Link to={link.path}>
+                            <i className="icon-feather-chevron-right" /> <span>{link.name}</span>
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 </div>
-              </div>
-              <div className="col-xl-2 col-md-3 col-sm-6">
-                <div className="utf-footer-item-links">
-                  <h3>Job Type</h3>
-                  <ul>
-                    <li><Link to="jobs-list-layout-leftside.html"><i className="icon-feather-chevron-right" /> <span>Work from Home</span></Link></li>
-                    <li><Link to="jobs-list-layout-leftside.html"><i className="icon-feather-chevron-right" /> <span>Internship Job</span></Link></li>
-                    <li><Link to="jobs-list-layout-leftside.html"><i className="icon-feather-chevron-right" /> <span>Freelancer Job</span></Link></li>
-                    <li><Link to="jobs-list-layout-leftside.html"><i className="icon-feather-chevron-right" /> <span>Part Time Job</span></Link></li>
-                    <li><Link to="jobs-list-layout-leftside.html"><i className="icon-feather-chevron-right" /> <span>Full Time Job</span></Link></li>
-                  </ul>
-                </div>
-              </div>
-              <div className="col-xl-2 col-md-3 col-sm-6">
-                <div className="utf-footer-item-links">
-                  <h3>Resources</h3>
-                  <ul>
-                    <li><Link to="#"><i className="icon-feather-chevron-right" /> <span>My Account</span></Link></li>
-                    <li><Link to="#"><i className="icon-feather-chevron-right" /> <span>Support</span></Link></li>
-                    <li><Link to="#"><i className="icon-feather-chevron-right" /> <span>How It Works</span></Link></li>
-                    <li><Link to="#"><i className="icon-feather-chevron-right" /> <span>Underwriting</span></Link></li>
-                    <li><Link to="#"><i className="icon-feather-chevron-right" /> <span>Employers</span></Link></li>
-                  </ul>
-                </div>
-              </div>
-              <div className="col-xl-2 col-md-3 col-sm-6">
-                <div className="utf-footer-item-links">
-                  <h3>Quick Links</h3>
-                  <ul>
-                    <li><Link to="jobs-list-layout-leftside.html"><i className="icon-feather-chevron-right" /> <span>Jobs Listing</span></Link></li>
-                    <li><Link to="/about-us"><i className="icon-feather-chevron-right" /> <span>About Us</span></Link></li>
-                    <li><Link to="/contact-us"><i className="icon-feather-chevron-right" /> <span>Contact Us</span></Link></li>
-                    <li><Link to="/privacy-policy"><i className="icon-feather-chevron-right" /> <span>Privacy Policy</span></Link></li>
-                    <li><Link to="/terms-condition"><i className="icon-feather-chevron-right" /> <span>Term &amp; Condition</span></Link></li>
-                  </ul>
-                </div>
-              </div>
+              ))}
             </div>
           </div>
-        </div>        
+        </div>
+
         <div className="utf-footer-copyright-item">
           <div className="container">
             <div className="row">
-              <div className="col-xl-12">Copyright © 2014 - {new Date().toLocaleDateString(undefined, { year: 'numeric' })} All Rights Reserved.</div>
+              <div className="col-xl-12">
+                Copyright © 2014 - {new Date().getFullYear()} All Rights Reserved.
+              </div>
             </div>
           </div>
         </div>
       </div>
     </Fragment>
-  )
-}
+  );
+};
 
-export default Footer
+export default Footer;

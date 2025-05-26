@@ -19,15 +19,12 @@ import Myprofile from "./pages/users/Myprofile";
 import Register from './pages/frontend/login/Register';
 import PrivateRoute from "./middleware/PrivateRoute";
 import Forgotpassword from "./pages/frontend/login/Forgotpassword";
-import Joblisting from "./pages/frontend/listing/Joblisting";
-import Category from './pages/frontend/category/Category';
-import Company from "./pages/frontend/company/Company";
-import Details from "./pages/frontend/company/Details";
+import Category from "./pages/frontend/category/Category";
 
 function App() {
   const [customData, setCustomData] = useState({});
   const [loadComponents, setLoadComponents] = useState(true);
-  
+
   return (
     <Fragment>
       <ClientContext.Provider value={{ customData, setCustomData, loadComponents, setLoadComponents }}>
@@ -54,17 +51,11 @@ function App() {
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
                 <Route path="/forgot-password" element={<Forgotpassword />} />
-                <Route path="/jobs-categories" element={<Category />} />            
+                <Route path="/jobs-categories" element={<Category />} />
                 <Route path="/about-us" element={<About />} />
                 <Route path="/contact-us" element={<Contact />} />
                 <Route path="/privacy-policy" element={<Privacy />} />
                 <Route path="/terms-condition" element={<Termcondition />} />
-                <Route path="/how-it-works" element={<Termcondition />} />
-                <Route path="/support" element={<Termcondition />} />
-                <Route path="/blogs/" element={<Termcondition />} />
-                <Route path="/jobs/:category" element={<Joblisting />} /> 
-                <Route path="/job/:city/:name" element={<Details />} /> 
-                <Route path="/company/:name" element={<Company />} />                
                 <Route path="*" element={<NotFound />} />
               </Route>
               <Route path="/users" element={<PrivateRoute><Layoutuser /></PrivateRoute>}>

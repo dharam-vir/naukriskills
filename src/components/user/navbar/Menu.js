@@ -35,8 +35,9 @@ const Menu = () => {
                   <span className="utf-hamburger-inner-item" />
                 </span>
               </span>
-              <span className="trigger-title">Dashboard Navigation Menu</span> 
+              <span className="trigger-title">Dashboard Navigation Menu</span>
             </Link>
+
             <div className="utf-dashboard-nav">
               <div className="utf-dashboard-nav-inner">
                 <div className="dashboard-profile-box">
@@ -45,7 +46,7 @@ const Menu = () => {
                   </span>
                   <div className="user-profile-text">
                     <span className="fullname">John Williams</span>
-                    <span className="user-role">Software Engineer</span> 
+                    <span className="user-role">Software Engineer</span>
                   </div>
                 </div>
                 <div className="clearfix" />
@@ -96,10 +97,11 @@ const Menu = () => {
                   <li className={location.pathname === "/users/my-profile" ? "active" : ""}>
                     <Link to="/users/my-profile"><i className="icon-feather-user" /> My Profile</Link>
                   </li>
-                  <li className={location.pathname === "/users/dashboard" ? "active" : ""}>
+                  {/* <li className={location.pathname === "/users/dashboard" ? "active" : ""}>
                     <Link to="/users/dashboard"><i className="icon-material-outline-power-settings-new" /> Logout</Link>
-                  </li>
+                  </li> */}
                 </ul>
+
               </div>
             </div>
           </div>

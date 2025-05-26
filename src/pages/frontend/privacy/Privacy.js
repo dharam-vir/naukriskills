@@ -1,8 +1,8 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 
 const Privacy = () => {
   return (
-    <>
+    <Fragment>
       <div className="section margin-top-65 padding-bottom-55">
         <div className="container">
           <div className="row">
@@ -35,8 +35,8 @@ const Privacy = () => {
           </div>
         </div>
       </div>
+    </Fragment>
 
-    </>
   )
 }
 

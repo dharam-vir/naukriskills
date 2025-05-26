@@ -4,7 +4,7 @@ import logo2 from '../../assets/images/logo2.png';
 import logo from '../../assets/images/logo.png';
 import user_small_1 from '../../assets/images/user_small_1.jpg';
 import { useDispatch, useSelector } from 'react-redux';
-import { logout } from '../../features/auth/AuthSlice';
+import { logoutUser } from '../../features/AuthSlice';
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -12,7 +12,7 @@ const Header = () => {
   const { user, isLoggedIn } = useSelector((state) => state.auth);
 
   const handleLogout = () => {
-    dispatch(logout());
+    dispatch(logoutUser());
   };
 
   const toggleMenu = () => {
@@ -109,13 +109,13 @@ const Header = () => {
                     </ul>
                   </li>
 
-                  <li><Link to="/contact">Contact</Link></li>
+                  <li><Link to="/contact-us">Contact</Link></li>
                 </ul>
               </nav>
               <div className="clearfix" />
             </div>
             <div className="utf-right-side">
-            { isLoggedIn ? (
+            { !isLoggedIn ? (
               <div className="utf-header-widget-item">
                 <Link to="/login" className="popup-with-zoom-anim log-in-button">
                   <i className="icon-feather-log-in" /> <span>Sign In</span>
