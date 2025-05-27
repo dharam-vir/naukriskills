@@ -1,97 +1,79 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 const Category = () => {
+    const [categories, setCategories] = useState([]);
+    const [pagination, setPagination] = useState({ page: 1, totalPages: 1 });
+    const [loading, setLoading] = useState(false);
+
+    const limit = 10;
+
+    const fetchCategories = async (page = 1) => {
+        setLoading(true);
+        try {
+            const res = await axios.get(`http://localhost:8080/api/v1/category/read?page=${page}&limit=${limit}`);
+            setCategories(res.data.category);
+            setPagination(res.data.pagination);
+        } catch (error) {
+            console.error('Error fetching categories:', error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    useEffect(() => {
+        fetchCategories(pagination.page);
+    }, [pagination.page]);
+
+    const handlePageChange = (newPage) => {
+        if (newPage >= 1 && newPage <= pagination.totalPages) {
+            setPagination(prev => ({ ...prev, page: newPage }));
+        }
+    };
+    console.log(categories);
     return (
         <Fragment>
-            <div class="section margin-top-65 padding-bottom-55">
-                <div class="container">
-                    <div class="row">
-                        <div class="utf-categories-container-block">
-                            <Link to="jobs-list-layout-leftside.html" class="utf-category-box">
-                                <div class="utf-opening-position-counter-item">10 Openings</div>
-                                <div class="utf-category-box-icon-item"> <i class="icon-line-awesome-bullhorn"></i> </div>
-                                <div class="utf-category-box-content">
-                                    <h3>Design, Art & Multimedia</h3>
-                                </div>
-                                <div class="utf-category-box-counter-item">8,188 Jobs</div>
-                            </Link>
-                            <Link to="jobs-list-layout-leftside.html" class="utf-category-box">
-                                <div class="utf-opening-position-counter-item">15 Openings</div>
-                                <div class="utf-category-box-icon-item"> <i class="icon-line-awesome-graduation-cap"></i> </div>
-                                <div class="utf-category-box-content">
-                                    <h3>Education & Training</h3>
-                                </div>
-                                <div class="utf-category-box-counter-item">5,244 Jobs</div>
-                            </Link>
-                            <Link to="jobs-list-layout-leftside.html" class="utf-category-box">
-                                <div class="utf-opening-position-counter-item">12 Openings</div>
-                                <div class="utf-category-box-icon-item"> <i class="icon-line-awesome-line-chart"></i> </div>
-                                <div class="utf-category-box-content">
-                                    <h3>Accounting / Finance</h3>
-                                </div>
-                                <div class="utf-category-box-counter-item">6,258 Jobs</div>
-                            </Link>
-                            <Link to="jobs-list-layout-leftside.html" class="utf-category-box">
-                                <div class="utf-opening-position-counter-item">20 Openings</div>
-                                <div class="utf-category-box-icon-item"> <i class="icon-line-awesome-users"></i> </div>
-                                <div class="utf-category-box-content">
-                                    <h3>Human Resource</h3>
-                                </div>
-                                <div class="utf-category-box-counter-item">1,224 Jobs</div>
-                            </Link>
-                            <Link to="jobs-list-layout-leftside.html" class="utf-category-box">
-                                <div class="utf-opening-position-counter-item">25 Openings</div>
-                                <div class="utf-category-box-icon-item"> <i class="icon-feather-phone-call"></i> </div>
-                                <div class="utf-category-box-content">
-                                    <h3>Telecommunications</h3>
-                                </div>
-                                <div class="utf-category-box-counter-item">3,258 Jobs</div>
-                            </Link>
-                            <Link to="jobs-list-layout-leftside.html" class="utf-category-box">
-                                <div class="utf-opening-position-counter-item">18 Openings</div>
-                                <div class="utf-category-box-icon-item"> <i class="icon-line-awesome-cutlery"></i> </div>
-                                <div class="utf-category-box-content">
-                                    <h3>Restaurant / Food Service</h3>
-                                </div>
-                                <div class="utf-category-box-counter-item">5,138 Jobs</div>
-                            </Link>
-                            <Link to="jobs-list-layout-leftside.html" class="utf-category-box">
-                                <div class="utf-opening-position-counter-item">38 Openings</div>
-                                <div class="utf-category-box-icon-item"> <i class="icon-line-awesome-building"></i> </div>
-                                <div class="utf-category-box-content">
-                                    <h3>Construction / Facilities</h3>
-                                </div>
-                                <div class="utf-category-box-counter-item">2,580 Jobs</div>
-                            </Link>
-                            <Link to="jobs-list-layout-leftside.html" class="utf-category-box">
-                                <div class="utf-opening-position-counter-item">23 Openings</div>
-                                <div class="utf-category-box-icon-item"> <i class="icon-line-awesome-user-md"></i> </div>
-                                <div class="utf-category-box-content">
-                                    <h3>Health</h3>
-                                </div>
-                                <div class="utf-category-box-counter-item">2,360 Jobs</div>
-                            </Link>
+            <div className="section margin-top-65 padding-bottom-55">
+                <div className="container">
+                    <div className="row">
+                        <div className="utf-categories-container-block">
+                            {
+                                categories.map((rows, index) => {
+                                    return (<Link to={`/jobs/${rows.url}`} className="utf-category-box" key={index}>
+                                        <div className="utf-opening-position-counter-item">10 Openings</div>
+                                        <div className="utf-category-box-icon-item"> <i className={rows.cssClassName} /> </div>
+                                        <div className="utf-category-box-content">
+                                            <h3>{rows.category_name}</h3>
+                                        </div>
+                                        <div className="utf-category-box-counter-item">8,188 Jobs</div>
+                                    </Link>)
+                                })
+                            }                           
                         </div>
                     </div>
-                
-                    <div class="clearfix"></div>
-                    <div class="utf-pagination-container-aera margin-top-40 margin-bottom-0">
-                        <nav class="pagination">
+                    {/* Pagination */}
+                    <div className="clearfix" />
+                    <div className="utf-pagination-container-aera margin-top-40 margin-bottom-0">
+                        <nav className="pagination">
                             <ul>
-                                <li class="utf-pagination-arrow"><Link to="#" class="ripple-effect"><i class="icon-material-outline-keyboard-arrow-left"></i></Link></li>
-                                <li><Link to="#" class="ripple-effect current-page">1</Link></li>
-                                <li><Link to="#" class="ripple-effect">2</Link></li>
-                                <li><Link to="#" class="ripple-effect">3</Link></li>
-                                <li class="utf-pagination-arrow"><Link to="#" class="ripple-effect"><i class="icon-material-outline-keyboard-arrow-right"></i></Link></li>
+                                <li className="utf-pagination-arrow"><Link onClick={() => handlePageChange(pagination.page - 1)} disabled={pagination.page <= 1} className="ripple-effect"><i className="icon-material-outline-keyboard-arrow-left" /></Link></li>
+                                <li><Link to="#" className="ripple-effect current-page">{pagination.page} of {pagination.totalPages}</Link></li>
+                                {/* <li><Link to="#" className="ripple-effect">2</Link></li>
+                                <li><Link to="#" className="ripple-effect">3</Link></li> */}
+                                <li className="utf-pagination-arrow">
+                                    <Link to="#" onClick={() => handlePageChange(pagination.page + 1)}
+                            disabled={pagination.page >= pagination.totalPages} className="ripple-effect"><i className="icon-material-outline-keyboard-arrow-right" /></Link>
+                                    </li>
                             </ul>
                         </nav>
                     </div>
-                    <div class="clearfix"></div>
+                    <div className="clearfix" />
                 </div>
             </div>
         </Fragment>
-    )
-}
 
-export default Category
+    );
+};
+
+export default Category;

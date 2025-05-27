@@ -20,7 +20,11 @@ import Register from './pages/frontend/login/Register';
 import PrivateRoute from "./middleware/PrivateRoute";
 import Forgotpassword from "./pages/frontend/login/Forgotpassword";
 import Category from "./pages/frontend/category/Category";
-import Subcategory from "./pages/frontend/category/Subcategory";
+import Joblisting from "./pages/frontend/listing/Joblisting";
+import Company from "./pages/frontend/company/Company";
+import Details from "./pages/frontend/company/Details";
+import Search from "./pages/frontend/search/Search";
+import Faquser from "./pages/frontend/faq/Faquser";
 
 function App() {
   const [customData, setCustomData] = useState({});
@@ -52,12 +56,19 @@ function App() {
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
                 <Route path="/forgot-password" element={<Forgotpassword />} />
-                <Route path="/jobs-categories" element={<Category />} />
-                <Route path="/jobs/categories" element={<Subcategory />} />
+                <Route path="/jobs-categories" element={<Category />} />                
                 <Route path="/about-us" element={<About />} />
                 <Route path="/contact-us" element={<Contact />} />
                 <Route path="/privacy-policy" element={<Privacy />} />
                 <Route path="/terms-condition" element={<Termcondition />} />
+                <Route path="/how-it-works" element={<Termcondition />} />
+                <Route path="/support" element={<Termcondition />} />
+                <Route path="/blogs/" element={<Termcondition />} />
+                <Route path="/jobs/:category" element={<Joblisting />} /> 
+                <Route path="/job/:city/:name" element={<Details />} /> 
+                <Route path="/company/:name" element={<Company />} />
+                <Route path="/search" element={<Search />} />
+                <Route path="/faq-user" element={<Faquser />} />
                 <Route path="*" element={<NotFound />} />
               </Route>
               <Route path="/users" element={<PrivateRoute><Layoutuser /></PrivateRoute>}>

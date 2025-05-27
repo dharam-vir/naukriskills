@@ -86,7 +86,7 @@ const LatestJobs = () => {
 
                         <div className="utf-listings-container-part compact-list-layout margin-top-35">
                             {jobListings.map((job, index) => (
-                                <a href="single-job-page.html" className="utf-job-listing utf-apply-button-item" key={index}>
+                                <a href="/jobs/single-job-page" className="utf-job-listing utf-apply-button-item" key={index}>
                                     <div className="utf-job-listing-details">
                                         <div className="utf-job-listing-company-logo">
                                             <img src={job.logo} alt={`company_logo_${index + 1}`} />
@@ -114,8 +114,8 @@ const LatestJobs = () => {
                         </div>
 
                         <div className="utf-centered-button margin-top-10">
-                            <a href="jobs-list-layout-leftside.html" className="button utf-ripple-effect-dark utf-button-sliding-icon margin-top-20">
-                                Browse All Jobs <i className="icon-feather-chevron-right" />
+                            <a href="#" className="button utf-ripple-effect-dark utf-button-sliding-icon margin-top-20">
+                                Browse More Jobs <i className="icon-feather-chevron-right" />
                             </a>
                         </div>
                     </div>

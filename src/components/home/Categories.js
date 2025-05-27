@@ -77,7 +77,7 @@ const Categories = () => {
                     {jobCategories.map((category, index) => (
                         <div className="col-xl-3 col-md-6 col-lg-4" key={index}>
                             <Link
-                                to="/jobs-list-layout-leftside"
+                                to="/jobs/list-layout-leftside"
                                 className="photo-box photo-category-box small"
                                 style={{
                                     backgroundImage: `url(/images/${category.image})`,

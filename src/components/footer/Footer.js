@@ -37,7 +37,7 @@ const footerLinks = [
   {
     title: 'Quick Links',
     links: [
-      { name: 'Jobs Listing', path: '/jobs' },
+      { name: 'User FAQ', path: '/faq-user' },
       { name: 'About Us', path: '/about-us' },
       { name: 'Contact Us', path: '/contact-us' },
       { name: 'Privacy Policy', path: '/privacy-policy' },
