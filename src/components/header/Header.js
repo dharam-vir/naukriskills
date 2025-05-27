@@ -36,7 +36,7 @@ const Header = () => {
                   <li><Link to="/" className="current">Home</Link></li>
 
                   <li>
-                    <Link to="/">Find Jobs</Link>
+                    <Link to="/">Jobs</Link>
                     <ul className="dropdown-nav">
                       <li>
                         <Link to="/jobs-list-layout-leftside">Browse Jobs</Link>
@@ -62,7 +62,7 @@ const Header = () => {
                   </li>
 
                   <li>
-                    <Link to="/">User Panel</Link>
+                    <Link to="/">Companies</Link>
                     <ul className="dropdown-nav">
                       <li><Link to="/dashboard">Dashboard</Link></li>
                       <li><Link to="/dashboard-jobs-post">Manage Jobs Post</Link></li>
@@ -84,7 +84,7 @@ const Header = () => {
                   </li>
 
                   <li>
-                    <Link to="/">Pages</Link>
+                    <Link to="/">Boost Your Profile</Link>
                     <ul className="dropdown-nav">
                       <li><Link to="/about">About Us</Link></li>
                       <li><Link to="/login">Login</Link></li>
@@ -100,7 +100,7 @@ const Header = () => {
                   </li>
 
                   <li>
-                    <Link to="/">Blog</Link>
+                    <Link to="/">Degree's</Link>
                     <ul className="dropdown-nav">
                       <li><Link to="/blog-right-sidebar">Blog List Right Sidebar</Link></li>
                       <li><Link to="/blog-left-sidebar">Blog List Left Sidebar</Link></li>
@@ -109,7 +109,7 @@ const Header = () => {
                     </ul>
                   </li>
 
-                  <li><Link to="/contact-us">Contact</Link></li>
+                  <li><Link to="/contact-us">Contact us</Link></li>
                 </ul>
               </nav>
               <div className="clearfix" />
@@ -129,7 +129,7 @@ const Header = () => {
                       <div className="user-avatar status-online">
                         <img src={user_small_1} alt="User" />
                       </div>
-                      <div className="user-name">Hi, {user?.name}! dasda</div>
+                      <div className="user-name">Hi, {user?.name} </div>
                     </Link>
                   </div>
 

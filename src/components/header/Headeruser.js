@@ -128,7 +128,7 @@ const Headeruser = () => {
                       <div className="user-avatar status-online">
                         <img src={user_small_1} alt="User" />
                       </div>
-                      <div className="user-name">Hi, {user?.name}! dasda</div>
+                      <div className="user-name">Hi, {user?.name}!</div>
                     </Link>
                   </div>
 
