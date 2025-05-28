@@ -2,7 +2,9 @@ import React, { Fragment, useState } from 'react';
 import { Link } from 'react-router-dom';
 import AdminLTELogo from '../../assets/dist/img/AdminLTELogo.png';
 import user2 from '../../assets/dist/img/user2-160x160.jpg';
-// import { ClientContext } from '../services/context/ClientContext';
+
+const userType = 'employer';
+
 const navItems = [
     {
         title: 'Dashboard',
@@ -91,7 +93,7 @@ const Navbar = () => {
             {/* Main Sidebar Container */}
             <aside className="main-sidebar sidebar-dark-primary elevation-4">
                 {/* Brand Logo */}
-                <Link to="/dashboard" className="brand-link">
+                <Link to="/" className="brand-link">
                     <img src={AdminLTELogo} alt="AdminLTE Logo" className="brand-image img-circle elevation-3" style={{ opacity: '.8' }} />
                     <span className="brand-text font-weight-light">Pratimaan</span>
                 </Link>

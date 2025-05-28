@@ -17,7 +17,7 @@ const Login = () => {
   useEffect(() => {
     if (user) {
       if (user.user_type === 'user') {
-        navigate('/users/dashboard');
+        navigate('/user/dashboard');
       } else if (user.user_type === 'employer') {
         navigate('/employer/dashboard');
       } else {

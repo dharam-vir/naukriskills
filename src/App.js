@@ -4,7 +4,7 @@ import Home from "./pages/frontend/home/Home";
 import Layout from "./layout/Layout";
 import Login from "./pages/frontend/login/Login";
 import About from "./pages/frontend/about/About";
-import Contact from "./pages/frontend/contect/Contect"; // If this is actually a Contact page
+import Contact from "./pages/frontend/contect/Contect"; 
 import Privacy from "./pages/frontend/privacy/Privacy";
 import Termcondition from "./pages/frontend/termcondition/Termcondition";
 import NotFound from "./pages/NotFound";
@@ -71,7 +71,7 @@ function App() {
                 <Route path="/faq-user" element={<Faquser />} />
                 <Route path="*" element={<NotFound />} />
               </Route>
-              <Route path="/users" element={<PrivateRoute><Layoutuser /></PrivateRoute>}>
+              <Route path="/user" element={<PrivateRoute><Layoutuser /></PrivateRoute>}>
                 <Route path="dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
                 <Route path="jobs-post" element={<PrivateRoute><Jobspost /></PrivateRoute>} />
                 <Route path="manage-jobs" element={<PrivateRoute><Dashboard /></PrivateRoute>} />

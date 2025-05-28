@@ -7,6 +7,7 @@ import ExperienceFilter from '../../../components/jobs/ExperienceFilter';
 import SkillsFilter from '../../../components/jobs/SkillsFilter';
 import banner from '../../../assets/images/banner-add-2.jpg';
 import JobSortHeader from '../../../components/jobs/JobSortHeader';
+import CategoryFilter from '../../../components/jobs/CategoryFilter';
 
 const Joblisting = () => {
   const dispatch = useDispatch();
@@ -46,6 +47,13 @@ const Joblisting = () => {
     // Sorting logic can be added here if needed
   };
 
+ const handleCategoryChange = (updatedCategory) => {
+    setFilters((prev) => ({
+      ...prev,
+      category: updatedCategory,
+    }));
+  };
+
   return (
     <Fragment>
       <div className="container">
@@ -77,22 +85,8 @@ const Joblisting = () => {
                   <i className="icon-material-outline-search" />
                 </div>
               </div>
-
-              <div className="utf-sidebar-widget-item">
-                <h3>Category</h3>
-                <select name="category" onChange={handleInputChange} value={filters.category}>
-                  <option value="">Select Category</option>
-                  <option value="Web Design">Web Design</option>
-                  <option value="Accountant">Accountant</option>
-                  <option value="Data Analytics">Data Analytics</option>
-                  <option value="Marketing">Marketing</option>
-                  <option value="Software Developing">Software Developing</option>
-                  <option value="IT & Networking">IT & Networking</option>
-                  <option value="Translation">Translation</option>
-                  <option value="Sales & Marketing">Sales & Marketing</option>
-                </select>
-              </div>
-
+              <CategoryFilter selectedCategory={filters.category} onChange={handleCategoryChange} />
+              
               <div className="utf-sidebar-widget-item">
                 <h3>Gender</h3>
                 <select name="gender" onChange={handleInputChange} value={filters.gender}>
@@ -123,7 +117,6 @@ const Joblisting = () => {
             <div className="utf-inner-search-section-title">
               <h4><i className="icon-material-outline-search" /> Search Jobs Listing Results</h4>
             </div>
-
             <JobSortHeader totalJobs={jobs?.length || 0} shownJobs={10} onSortChange={handleSortChange} />
 
             {loading ? (
@@ -187,7 +180,6 @@ const Joblisting = () => {
                 </div>
               </div>
             </div>
-
           </div>
         </div>
       </div>
