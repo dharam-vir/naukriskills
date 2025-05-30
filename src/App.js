@@ -25,6 +25,15 @@ import Company from "./pages/frontend/company/Company";
 import Details from "./pages/frontend/company/Details";
 import Search from "./pages/frontend/search/Search";
 import Faquser from "./pages/frontend/faq/Faquser";
+import ResumeUploader from "./pages/users/ResumeUploader";
+import Projects from "./pages/users/Projects";
+import KeySkills from "./pages/users/KeySkills";
+import Employment from "./pages/users/Employment";
+import Education from "./pages/users/Education";
+import PersonelDetails from "./pages/users/PersonelDetails";
+import CareerProfile from "./pages/users/CareerProfile";
+import ProfileSummary from './pages/users/ProfileSummary';
+import Profile from "./pages/users/Profile";
 
 function App() {
   const [customData, setCustomData] = useState({});
@@ -75,18 +84,31 @@ function App() {
                 <Route path="dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
                 <Route path="jobs-post" element={<PrivateRoute><Jobspost /></PrivateRoute>} />
                 <Route path="manage-jobs" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
-                <Route path="manage-resume" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
-                <Route path="bookmarks" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
-                <Route path="bookmarks" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
-                <Route path="my-profile" element={<PrivateRoute><Myprofile /></PrivateRoute>} />
-                <Route path="reviews" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
-                <Route path="freelancer-manage-tasks-list" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
-                <Route path="manage-bidders-list" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
-                <Route path="freelancer-active-bids" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
-                <Route path="freelancer-add-post-bids" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
+                <Route path="manage-resume" element={<PrivateRoute><ResumeUploader /></PrivateRoute>} />
+                <Route path="resume-headline" element={<PrivateRoute><resumeHeadline /></PrivateRoute>} />
+                <Route path="projects" element={<PrivateRoute><Projects /></PrivateRoute>} />
+                <Route path="profile-summary" element={<PrivateRoute><ProfileSummary /></PrivateRoute>} />
+                <Route path="key-skills" element={<PrivateRoute><KeySkills /></PrivateRoute>} />                
+                <Route path="employment" element={<PrivateRoute><Employment /></PrivateRoute>} />
+                <Route path="education" element={<PrivateRoute><Education /></PrivateRoute>} />
+                <Route path="personel-details" element={<PrivateRoute><PersonelDetails /></PrivateRoute>} />
+                <Route path="career-profile" element={<PrivateRoute><CareerProfile /></PrivateRoute>} />
+                <Route path="profile" element={<PrivateRoute><Profile /></PrivateRoute>} />
               </Route>
               <Route path="/employer" element={<Layoutuser />}>
-                <Route path="dashboard" element={<Home />} />
+                 <Route path="dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
+                <Route path="jobs-post" element={<PrivateRoute><Jobspost /></PrivateRoute>} />
+                <Route path="manage-jobs" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
+                <Route path="manage-resume" element={<PrivateRoute><ResumeUploader /></PrivateRoute>} />
+                <Route path="resume-headline" element={<PrivateRoute><resumeHeadline /></PrivateRoute>} />
+                <Route path="projects" element={<PrivateRoute><Projects /></PrivateRoute>} />
+                <Route path="profile-summary" element={<PrivateRoute><ProfileSummary /></PrivateRoute>} />
+                <Route path="key-skills" element={<PrivateRoute><KeySkills /></PrivateRoute>} />                
+                <Route path="employment" element={<PrivateRoute><Employment /></PrivateRoute>} />
+                <Route path="education" element={<PrivateRoute><Education /></PrivateRoute>} />
+                <Route path="personel-details" element={<PrivateRoute><PersonelDetails /></PrivateRoute>} />
+                <Route path="career-profile" element={<PrivateRoute><CareerProfile /></PrivateRoute>} />
+                <Route path="profile" element={<PrivateRoute><Profile /></PrivateRoute>} />
               </Route>
             </Routes>
           </BrowserRouter>

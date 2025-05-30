@@ -8,13 +8,7 @@ const initialState = {
       path: '/dashboard',
       icon: 'icon-material-outline-dashboard',
       allowed: ['user', 'employer', 'admin'],
-    },
-    {
-      label: 'Manage Jobs Post',
-      path: '/jobs-post',
-      icon: 'icon-line-awesome-user-secret',
-      allowed: ['employer'],
-    },
+    },   
     {
       label: 'Manage Resume',
       path: '/manage-resume',
@@ -22,34 +16,64 @@ const initialState = {
       allowed: ['user'],
     },
     {
-      label: 'Bookmarks Jobs',
-      path: '/bookmarks',
+      label: 'Resume headline',
+      path: '/resume-headline',
+      icon: 'icon-material-outline-supervisor-account',
+      allowed: ['user'],
+    },
+    {
+      label: 'Projects',
+      path: '/projects',
       icon: 'icon-feather-heart',
       allowed: ['user'],
     },
+    //  {
+    //   label: 'IT skills',
+    //   path: '/it-skills',
+    //   icon: 'icon-line-awesome-user-secret',
+    //   allowed: ['user'],
+    // },
     {
-      label: 'Freelancer Tasks',
+      label: 'Profile summary',
+      path: '/profile-summary',
       icon: 'icon-line-awesome-file-text',
       allowed: ['user'],
-      children: [
-        { label: 'Manage Tasks', path: '/freelancer-manage-tasks-list' },
-        { label: 'Manage Bidders', path: '/manage-bidders-list' },
-        { label: 'Active Bids', path: '/freelancer-active-bids' },
-        { label: 'Post Bids', path: '/freelancer-add-post-bids' },
-      ],
     },
     {
-      label: 'Reviews',
-      path: '/reviews',
+      label: 'Career profile',
+      path: '/career-profile',
       icon: 'icon-material-outline-rate-review',
       allowed: ['user', 'employer'],
     },
     {
-      label: 'My Profile',
-      path: '/my-profile',
+      label: 'Personal Details',
+      path: '/personel-details',
+      icon: 'icon-feather-user',
+      allowed: ['user', 'employer'],
+    },{
+      label: 'Education',
+      path: '/education',
+      icon: 'icon-feather-user',
+      allowed: ['user'],
+      // children: [
+      //   { label: 'Manage Tasks', path: '/freelancer-manage-tasks-list' },
+      //   { label: 'Manage Bidders', path: '/manage-bidders-list' },
+      //   { label: 'Active Bids', path: '/freelancer-active-bids' },
+      //   { label: 'Post Bids', path: '/freelancer-add-post-bids' },
+      // ],
+    },
+    {
+      label: 'Employment',
+      path: '/employment',
       icon: 'icon-feather-user',
       allowed: ['user', 'employer'],
     },
+    {
+      label: 'Key Skills',
+      path: '/key-skills',
+      icon: 'icon-feather-user',
+      allowed: ['user', 'employer'],
+    }
   ],
 };
 

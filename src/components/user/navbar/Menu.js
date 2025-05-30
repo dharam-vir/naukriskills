@@ -5,8 +5,9 @@ import useravatar from "../../../assets/images/user-avatar-placeholder.png";
 
 const Menu = () => {
   const location = useLocation();
-  const {menuItems} = useSelector((state) => state.sidebarMenu);
-  const userType = useSelector((state) => state.auth.user?.user_type);
+  const { menuItems } = useSelector((state) => state.sidebarMenu);
+  const user = useSelector((state) => state.auth.user);
+
   const [activeMenu, setActiveMenu] = useState(false);
 
   useEffect(() => {
@@ -22,13 +23,13 @@ const Menu = () => {
 
   const toggleSubMenu = (e) => {
     e.preventDefault();
-    setActiveMenu(!activeMenu);
+    setActiveMenu((prev) => !prev);
   };
 
   const renderMenuItem = (item) => {
-    if (item.allowed && !item.allowed.includes(userType)) return null;
+    if (item.allowed && !item.allowed.includes(user.user_type)) return null;
 
-    const resolvedPath = `/${userType}${item.path || ''}`;
+    const resolvedPath = `/${user.user_type}${item.path || ''}`;
     const isActive = location.pathname === resolvedPath;
 
     if (item.children) {
@@ -41,10 +42,13 @@ const Menu = () => {
           {isFreelancerMenu && activeMenu && (
             <ul className="dropdown-nav">
               {item.children.map((child) => {
-                const childPath = `${userType}/${child.path}`;
+                const childPath = `/${user.user_type}/${child.path}`;
+                const isChildActive = location.pathname === childPath;
                 return (
-                  <li key={child.label} className={location.pathname === childPath ? 'active' : ''}>
-                    <Link to={childPath}><i className="icon-feather-chevron-right" /> {child.label}</Link>
+                  <li key={`${item.label}-${child.label}`} className={isChildActive ? 'active' : ''}>
+                    <Link to={childPath}>
+                      <i className="icon-feather-chevron-right" /> {child.label}
+                    </Link>
                   </li>
                 );
               })}
@@ -56,10 +60,14 @@ const Menu = () => {
 
     return (
       <li key={item.label} className={isActive ? 'active' : ''}>
-        <Link to={resolvedPath}><i className={item.icon} /> {item.label}</Link>
+        <Link to={resolvedPath}>
+          <i className={item.icon} /> {item.label}
+        </Link>
       </li>
     );
   };
+
+  if (!user || !user.user_type) return null;
 
   return (
     <Fragment>
@@ -72,7 +80,7 @@ const Menu = () => {
                   <span className="utf-hamburger-inner-item" />
                 </span>
               </span>
-              <span className="trigger-title">Dashboard Navigation Menu</span>
+              <span className="trigger-title">Menu</span>
             </Link>
 
             <div className="utf-dashboard-nav">
@@ -82,13 +90,15 @@ const Menu = () => {
                     <img alt="User Avatar" src={useravatar} className="photo" />
                   </span>
                   <div className="user-profile-text">
-                    <span className="fullname">John Williams</span>
-                    <span className="user-role">Software Engineer</span>
+                    <span className="fullname">{user.name} {user.lname}</span>
+                    <span className="user-role">{user.user_type?.toUpperCase()} PANEL</span>
                   </div>
                 </div>
 
                 <div className="clearfix" />
-                <ul>{menuItems.map(renderMenuItem)}</ul>
+                <ul>
+                  {menuItems && menuItems.map(renderMenuItem)}
+                </ul>
               </div>
             </div>
           </div>
