@@ -3,7 +3,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 // Async thunk to fetch jobs
 export const fetchJobs = createAsyncThunk('jobs/fetchJobs', async (filters) => {
-  const response = await fetch(`http://localhost:8080/api/v1/jobs`, {
+  const response = await fetch(`http://localhost:8080/api/v1/jobs/listing`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(filters),

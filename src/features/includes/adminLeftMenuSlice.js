@@ -27,12 +27,6 @@ const initialState = {
       icon: 'icon-feather-heart',
       allowed: ['user'],
     },
-    //  {
-    //   label: 'IT skills',
-    //   path: '/it-skills',
-    //   icon: 'icon-line-awesome-user-secret',
-    //   allowed: ['user'],
-    // },
     {
       label: 'Profile summary',
       path: '/profile-summary',
@@ -52,15 +46,14 @@ const initialState = {
       allowed: ['user', 'employer'],
     },{
       label: 'Education',
-      path: '/education',
       icon: 'icon-feather-user',
-      allowed: ['user'],
-      // children: [
-      //   { label: 'Manage Tasks', path: '/freelancer-manage-tasks-list' },
-      //   { label: 'Manage Bidders', path: '/manage-bidders-list' },
-      //   { label: 'Active Bids', path: '/freelancer-active-bids' },
-      //   { label: 'Post Bids', path: '/freelancer-add-post-bids' },
-      // ],
+      allowed: ['user','employer'],
+      children: [
+        { label: 'Manage Tasks', path: '/freelancer-manage-tasks-list' },
+        { label: 'Manage Bidders', path: '/manage-bidders-list' },
+        { label: 'Active Bids', path: '/freelancer-active-bids' },
+        { label: 'Post Bids', path: '/freelancer-add-post-bids' },
+      ],
     },
     {
       label: 'Employment',
@@ -73,7 +66,12 @@ const initialState = {
       path: '/key-skills',
       icon: 'icon-feather-user',
       allowed: ['user', 'employer'],
-    }
+    },
+     {
+    "label": "Settings",
+    "path": "/settings",
+    "allowed": ["employer"]
+  }
   ],
 };
 

@@ -1,13 +1,20 @@
-import React, { Fragment, useState } from 'react';
+import { Fragment, useState } from 'react';
 import { Link } from 'react-router-dom';
 import logo2 from '../../assets/images/logo2.png';
 import logo from '../../assets/images/logo.png';
 import user_small_1 from '../../assets/images/user_small_1.jpg';
 import { useDispatch, useSelector } from 'react-redux';
 import { logoutUser } from '../../features/AuthSlice';
+// import axios from 'axios';
 
+const Header = () => {
+  const [menuOpen, setMenuOpen] = useState(false);
+  // const [menuItems, setMenuItems] = useState([]);
+  const dispatch = useDispatch();
+  const { user, isLoggedIn } = useSelector((state) => state.auth);
+  const userType = user?.user_type || 'guest';
 
-const menuItems = [
+  const menuItems = [
   {
     label: 'Home',
     path: '/',
@@ -16,77 +23,55 @@ const menuItems = [
   {
     label: 'Jobs',
     allowed: ['jobseeker', 'employer', 'admin'],
+    path: '/jobs/Jobs',
     children: [
-      {
-        label: 'Browse Jobs',
-        path: '/jobs-list-layout-leftside',
-        children: [
-          { label: 'Jobs List Left Sidebar', path: '/jobs-list-layout-leftside' },
-          { label: 'Jobs List Right Sidebar', path: '/jobs-list-layout-rightside' },
-          { label: 'Jobs List With Map', path: '/jobs-listing-with-map' },
-        ],
-      },
-      { label: 'Browse Companies', path: '/browse-companies' },
-      { label: 'Jobs Detail Page', path: '/job-detail' },
-      { label: 'Company Profile Detail', path: '/company-profile' },
-      {
-        label: 'Freelancer Tasks',
-        children: [
-          { label: 'Freelancer Bidding Task', path: '/freelancers-bidding-tasks' },
-          { label: 'Freelancer User List', path: '/freelancers-user-list' },
-          { label: 'Freelancer Task Detail', path: '/freelancer-task-detail' },
-          { label: 'Freelancer Profile Detail', path: '/freelancer-profile' },
-        ],
-      },
+      { label: 'Recent', path: '/jobs/recent' },
+      { label: 'Featured', path: '/jobs/featured' },
+      { label: 'Remote', path: "/jobs/remote" },
+      { label: 'Full-Time', path: '/jobs/full-time' },
+      { label: 'Part-Time', path: '/jobs/part-time' },
+      { label: 'Internships', path: '/jobs/internships' }
+    ],
+  },
+  {
+    label: 'Categories',
+    path: '/jobs/categories',
+    children: [
+      { label: 'Information Technology', path: '/jobs/categories/it' },
+      { label: 'Marketing', path: '/jobs/categories/marketing' },
+      { label: 'Design & Creative', path: '/jobs/categories/design' },
+      { label: 'Finance', path: '/jobs/categories/finance' },
+      { label: 'Human Resources', path: '/jobs/categories/hr' },
+      { label: 'Sales', path: '/jobs/categories/sales' },
+      { label: 'Education', path: '/jobs/categories/education' },
+      { label: 'Healthcare', path: '/jobs/categories/healthcare' },
+      { label: 'Engineering', path: '/jobs/categories/engineering' },
+      { label: 'Legal', path: '/jobs/categories/legal' }
     ],
   },
   {
     label: 'Companies',
     allowed: ['employer'],
+    path: '/jobs/employer',
     children: [
-      { label: 'Dashboard', path: '/dashboard' },
-      { label: 'Manage Jobs Post', path: '/dashboard-jobs-post' },
-      { label: 'Manage Jobs', path: '/dashboard-manage-jobs' },
-      { label: 'Manage Resume', path: '/dashboard-manage-resume' },
-      { label: 'Bookmarks Jobs', path: '/dashboard-bookmarks' },
-      {
-        label: 'Freelancer Tasks',
-        children: [
-          { label: 'Freelancer Manage Tasks', path: '/dashboard-freelancer-tasks' },
-          { label: 'Freelancer Manage Bidders', path: '/dashboard-manage-bidders' },
-          { label: 'Freelancer Active Bids', path: '/dashboard-active-bids' },
-          { label: 'Freelancer Post Bids', path: '/dashboard-post-bids' },
-        ],
-      },
-      { label: 'Reviews', path: '/dashboard-reviews' },
-      { label: 'My Profile', path: '/dashboard-my-profile' },
+      { label: "Featured Companies", path: "/featured" },
+      { label: "Hiring Now", path: "/hiring-now" },
+      { label: "Top Rated", path: "/top-rated" },
+      { label: "Startups", path: "/startups" },
+      { label: "Enterprises", path: "/enterprise" },
+      { label: "Browse by Location", path: "/by-location" },
+      { label: "Browse by Industry", path: "/industries" }
     ],
   },
   {
     label: 'Boost Your Profile',
     allowed: ['admin', 'employer', 'jobseeker'],
-    children: [
-      { label: 'About Us', path: '/about' },
-      { label: 'Login', path: '/login' },
-      { label: 'Sign Up', path: '/register' },
-      { label: 'Order Checkout', path: '/checkout' },
-      { label: 'Order Confirmation', path: '/order-confirmation' },
-      { label: 'Invoice Template', path: '/invoice' },
-      { label: 'User Elements', path: '/user-elements' },
-      { label: 'Icons Cheatsheet', path: '/icons' },
-      { label: 'FAQ Page', path: '/faq' },
-      { label: '404 Page', path: '/404' },
-    ],
+    path: '/boost-your-profile'
   },
   {
     label: "Degree's",
     allowed: ['admin', 'jobseeker'],
-    children: [
-      { label: 'Blog List Right Sidebar', path: '/blog-right-sidebar' },
-      { label: 'Blog List Left Sidebar', path: '/blog-left-sidebar' },
-      { label: 'Blog Detail Right Sidebar', path: '/blog-post-right' },
-      { label: 'Blog Detail Left Sidebar', path: '/blog-post-left' },
-    ],
+    path: '/degrees'
   },
   {
     label: 'Contact us',
@@ -98,7 +83,7 @@ const menuItems = [
 const renderMenu = (items) => {
   return (
     <ul className="dropdown-nav">
-      {items.map((item) => {       
+      {items.map((item) => {
         return (
           <li key={item.label}>
             {item.path ? <Link to={item.path}>{item.label}</Link> : <span>{item.label}</span>}
@@ -110,11 +95,19 @@ const renderMenu = (items) => {
   );
 };
 
-const Header = () => {
-  const [menuOpen, setMenuOpen] = useState(false);
-  const dispatch = useDispatch();
-  const { user, isLoggedIn } = useSelector((state) => state.auth);
-  const userType = user?.user_type || 'guest';
+  // const FetchMenu = async () => {
+  //   try {
+  //     const response = await axios.get(`${process.env.REACT_APP_API_URL}/menu/${userType}`);
+  //     setMenuItems(response.data); // Assuming the response is the menu items
+  //   } catch (error) {
+  //     console.error('Error fetching menu:', error);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   FetchMenu();
+  // }, []);
+
   const handleLogout = () => {
     dispatch(logoutUser());
   };
@@ -137,16 +130,14 @@ const Header = () => {
 
               <nav id="navigation">
                 <ul id="responsive">
-                  {
-                    menuItems.map((item)=>{
-                     return (
-                         <li key={item.label}>
-                             {item.path ? <Link to={item.path}>{item.label}</Link> : <Link>{item.label}</Link>}
-                             {item.children && renderMenu(item.children)}
-                          </li>
-                     )                      
-                    })
-                  }
+                  {menuItems.map((item) => {
+                    return (
+                      <li key={item.label}>
+                        {item.path ? <Link to={item.path}>{item.label}</Link> : <span>{item.label}</span>}
+                        {item.children && renderMenu(item.children)}
+                      </li>
+                    );
+                  })}
                 </ul>
               </nav>
             </div>
@@ -171,10 +162,22 @@ const Header = () => {
                     </div>
 
                     <div className="utf-header-notifications-dropdown-block">
-                      <ul className="utf-user-menu-dropdown-nav">                        
-                        <li><Link to={`/${userType}/dashboard`}><i className="icon-material-outline-dashboard" /> Dashboard</Link></li>
-                        <li><Link to={`/${userType}/profile`}><i className="icon-feather-user" /> My Profile</Link></li>
-                        <li><Link onClick={handleLogout}><i className="icon-material-outline-power-settings-new" /> Logout</Link></li>
+                      <ul className="utf-user-menu-dropdown-nav">
+                        <li>
+                          <Link to={`/${userType}/dashboard`}>
+                            <i className="icon-material-outline-dashboard" /> Dashboard
+                          </Link>
+                        </li>
+                        <li>
+                          <Link to={`/${userType}/profile`}>
+                            <i className="icon-feather-user" /> My Profile
+                          </Link>
+                        </li>
+                        <li>
+                          <Link onClick={handleLogout}>
+                            <i className="icon-material-outline-power-settings-new" /> Logout
+                          </Link>
+                        </li>
                       </ul>
                     </div>
                   </div>

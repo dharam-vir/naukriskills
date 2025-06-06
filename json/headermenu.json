@@ -1,0 +1,85 @@
+  {
+    label: 'Home',
+    path: '/',
+    allowed: ['admin', 'employer', 'jobseeker'],
+  },
+  {
+    label: 'Jobs',
+    allowed: ['jobseeker', 'employer', 'admin'],
+    children: [
+      {
+        label: 'Browse Jobs',
+        path: '/jobs-list-layout-leftside',
+        children: [
+          { label: 'Jobs List Left Sidebar', path: '/jobs-list-layout-leftside' },
+          { label: 'Jobs List Right Sidebar', path: '/jobs-list-layout-rightside' },
+          { label: 'Jobs List With Map', path: '/jobs-listing-with-map' },
+        ],
+      },
+      { label: 'Browse Companies', path: '/browse-companies' },
+      { label: 'Jobs Detail Page', path: '/job-detail' },
+      { label: 'Company Profile Detail', path: '/company-profile' },
+      {
+        label: 'Freelancer Tasks',
+        children: [
+          { label: 'Freelancer Bidding Task', path: '/freelancers-bidding-tasks' },
+          { label: 'Freelancer User List', path: '/freelancers-user-list' },
+          { label: 'Freelancer Task Detail', path: '/freelancer-task-detail' },
+          { label: 'Freelancer Profile Detail', path: '/freelancer-profile' },
+        ],
+      },
+    ],
+  },
+  {
+    label: 'Companies',
+    allowed: ['employer'],
+    children: [
+      { label: 'Dashboard', path: '/dashboard' },
+      { label: 'Manage Jobs Post', path: '/dashboard-jobs-post' },
+      { label: 'Manage Jobs', path: '/dashboard-manage-jobs' },
+      { label: 'Manage Resume', path: '/dashboard-manage-resume' },
+      { label: 'Bookmarks Jobs', path: '/dashboard-bookmarks' },
+      {
+        label: 'Freelancer Tasks',
+        children: [
+          { label: 'Freelancer Manage Tasks', path: '/dashboard-freelancer-tasks' },
+          { label: 'Freelancer Manage Bidders', path: '/dashboard-manage-bidders' },
+          { label: 'Freelancer Active Bids', path: '/dashboard-active-bids' },
+          { label: 'Freelancer Post Bids', path: '/dashboard-post-bids' },
+        ],
+      },
+      { label: 'Reviews', path: '/dashboard-reviews' },
+      { label: 'My Profile', path: '/dashboard-my-profile' },
+    ],
+  },
+  {
+    label: 'Boost Your Profile',
+    allowed: ['admin', 'employer', 'jobseeker'],
+    children: [
+      { label: 'About Us', path: '/about' },
+      { label: 'Login', path: '/login' },
+      { label: 'Sign Up', path: '/register' },
+      { label: 'Order Checkout', path: '/checkout' },
+      { label: 'Order Confirmation', path: '/order-confirmation' },
+      { label: 'Invoice Template', path: '/invoice' },
+      { label: 'User Elements', path: '/user-elements' },
+      { label: 'Icons Cheatsheet', path: '/icons' },
+      { label: 'FAQ Page', path: '/faq' },
+      { label: '404 Page', path: '/404' },
+    ],
+  },
+  {
+    label: "Degree's",
+    allowed: ['admin', 'jobseeker'],
+    children: [
+      { label: 'Blog List Right Sidebar', path: '/blog-right-sidebar' },
+      { label: 'Blog List Left Sidebar', path: '/blog-left-sidebar' },
+      { label: 'Blog Detail Right Sidebar', path: '/blog-post-right' },
+      { label: 'Blog Detail Left Sidebar', path: '/blog-post-left' },
+    ],
+  },
+  {
+    label: 'Contact us',
+    path: '/contact-us',
+    allowed: ['admin', 'employer', 'jobseeker'],
+  },
