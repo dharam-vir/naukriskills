@@ -68,6 +68,22 @@ export const sendForgotPasswordEmail = createAsyncThunk(
   }
 );
 
+// ✅ Async thunk: Change Password
+export const changePassword = createAsyncThunk(
+  'auth/changePassword',
+  async ({ currentPassword, newPassword }, { rejectWithValue }) => {
+    try {
+      const response = await axios.post(`${process.env.REACT_APP_API_URL}auth/change-password`, { currentPassword, newPassword });
+      toast.success(response?.data?.message || 'Password changed successfully');
+      return response.data;
+    } catch (error) {
+      const errMsg = error.response?.data?.message || 'Failed to change password';
+      toast.error(errMsg);
+      return rejectWithValue(errMsg);
+    }
+  }
+);
+
 // ✅ Auth slice
 const authSlice = createSlice({
   name: 'auth',
@@ -77,6 +93,13 @@ const authSlice = createSlice({
     isLoggedIn: !!localStorage.getItem('token'),
     loading: false,
     error: null,
+    success: null,  // Added success state
+  },
+  reducers: {
+    resetStatus: (state) => {
+      state.error = null;
+      state.success = null;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -132,6 +155,21 @@ const authSlice = createSlice({
         state.loading = false;
       })
       .addCase(sendForgotPasswordEmail.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+
+      // 📧 Change Password
+      .addCase(changePassword.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+        state.success = null;  // Reset success when changing password
+      })
+      .addCase(changePassword.fulfilled, (state, action) => {
+        state.loading = false;
+        state.success = 'Password changed successfully';  // Set success message
+      })
+      .addCase(changePassword.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       });

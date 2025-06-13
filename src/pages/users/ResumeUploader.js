@@ -1,174 +1,234 @@
-import React, { Fragment, useState } from 'react';
+import React, { useRef } from 'react';
+import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import placeholder from "../../assets/images/user-avatar-placeholder.png";
+import { useDispatch, useSelector } from 'react-redux';
+import { uploadResume, removeResume, uploadResumeToApi, downloadResumeFromApi } from '../../features/resumeSlice';
+import resumeHeadline from './resumeHeadline';
 
-const ResumeUploader = () => {
-  const [file, setFile] = useState(null);
-  const [fileURL, setFileURL] = useState('');
+function ManageResume() {
+  const fileInputRef = useRef(null);
+  const dispatch = useDispatch();
+  const resumeFile = useSelector((state) => state.resume.file);
+  const uploading = useSelector((state) => state.resume.uploading);
+  const { user } = useSelector((state) => state.auth);
+  const error = useSelector((state) => state.resume.error);
 
-  const handleFileChange = (e) => {
-    const uploadedFile = e.target.files[0];
-    setFile(uploadedFile);
+  const handleImageClick = () => {
+    fileInputRef.current.click();
+  };
 
-    // Create URL to preview the file
-    const url = URL.createObjectURL(uploadedFile);
-    setFileURL(url);
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      dispatch(uploadResume(file));
+      toast.success(`File selected: ${file.name}`);
+    }
+  };
+
+  const handleUpload = async (event) => {
+    event.preventDefault();
+
+    if (resumeFile) {
+      try {
+        await dispatch(uploadResumeToApi(resumeFile)).unwrap();
+        toast.success(`Resume uploaded: ${resumeFile.name}`);
+      } catch (err) {
+        toast.error(`Upload failed: ${err}`);
+      }
+    } else {
+      toast.error('Please select a resume file to upload.');
+    }
+  };
+
+  const downloadResume = () => {
+    dispatch(downloadResumeFromApi(user.id));
+    toast.info('Download resume Successfully.');
+  };
+
+  const removeFile = () => {
+    dispatch(removeResume());
+
+    if (fileInputRef.current) {
+      fileInputRef.current.value = null;
+    }
+    toast.success('Resume file removed.');
   };
 
   return (
-    <Fragment>
-        <div className="row">
-          <div className="col-xl-12">
-            <div className="dashboard-box margin-top-0">
-              <div className="headline">
-                <h3>Manage Resume List</h3>
-              </div>
-              <div className="content">
-                <ul className="utf-dashboard-box-list">
-                  <li>
-                    <div className="utf-manage-resume-overview-aera utf-manage-candidate">
-                      <div className="utf-manage-resume-overview-aera-inner">
-                        <div className="utf-manage-resume-avatar">
-                          <a href="#"><img src="images/user_big_1.jpg" alt /></a>
-                        </div>
-                        <div className="utf-manage-resume-item">
-                          <h4><a href="#">John Williams</a><span className="dashboard-status-button green"><i className="icon-material-outline-business-center" /> Full Time</span></h4>
-                          <span className="utf-manage-resume-detail-item"><a href="#"><i className="icon-feather-mail" /> demo@example.com</a></span>
-                          <span className="utf-manage-resume-detail-item"><i className="icon-feather-phone" /> (+12) 0123-654-987</span>
-                          <span className="utf-manage-resume-detail-item"><a href="#"><i className="icon-material-outline-location-on" /> 2767 Concord Street</a></span>
-                          <div className="utf-buttons-to-right">
-                            <a href="#small-dialog" className="popup-with-zoom-anim button ripple-effect" title="Send Message" data-tippy-placement="top"><i className="icon-feather-mail" /> Send</a>
-                            <a href="#" className="button green ripple-effect ico" title="Download CV" data-tippy-placement="top"><i className="icon-feather-download" /></a>
-                            <a href="#" className="button red ripple-effect ico" title="Remove" data-tippy-placement="top"><i className="icon-feather-trash-2" /></a>
-                          </div>
-                        </div>
+    <div className="row">
+      <div className="col-xl-12">
+        <div className="dashboard-box">
+          <div className="headline d-flex">
+            <div className="col-xl-6">
+              <h3>My Profile Details</h3>
+            </div>
+            <div className="col-xl-6" style={{ textAlign: 'right' }}>
+              <Link onClick={downloadResume}>
+                <i className="icon-material-outline-business-right" /> Download Resume
+              </Link>
+            </div>
+          </div>
+
+          <div className="content with-padding padding-bottom-10">
+            <div className="row">
+              <div className="col-xl-12">
+                <div className="row">
+                  <div className="col-xl-9 col-md-3 col-sm-4">
+                    <div
+                      className="utf-avatar-wrapper"
+                      onClick={handleImageClick}
+                      data-tippy-placement="top"
+                      title="Upload Resume"
+                      style={{ height: 166, cursor: 'pointer' }}
+                    >
+                      <img
+                        className="profile-pic"
+                        src={placeholder}
+                        alt="placeholder"
+                        style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                      />
+                      <div className="upload-button" />
+                      <input
+                        className="file-upload form-control mb-2"
+                        type="file"
+                        accept=".pdf,.doc,.docx"
+                        style={{ display: 'none' }}
+                        onChange={handleFileChange}
+                        ref={fileInputRef}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="col-xl-3 col-md-9 col-sm-8">
+                    <div className="utf-submit-field">
+                      <div className="utf-account-type">
+                        {resumeFile && (
+                          <p>
+                            <strong>File Name:</strong> {resumeFile.name} &nbsp;
+                            <Link onClick={removeFile}>Remove Resume</Link>
+                          </p>
+                        )}
+
+                        <Link
+                          onClick={handleUpload}
+                          className={`button ripple-effect big margin-top-10 margin-bottom-20 ${uploading ? 'disabled' : ''
+                            }`}
+                        >
+                          <i className="icon-material-outline-business-center" />{' '}
+                          {uploading ? 'Uploading...' : 'Save Changes'}
+                        </Link>
+
+                        {error && <p className="text-danger mt-2">Error: {error}</p>}
                       </div>
                     </div>
-                  </li>
-                  <li>
-                    <div className="utf-manage-resume-overview-aera utf-manage-candidate">
-                      <div className="utf-manage-resume-overview-aera-inner">
-                        <div className="utf-manage-resume-avatar">
-                          <a href="#"><img src="images/user_big_2.jpg" alt /></a>
-                        </div>
-                        <div className="utf-manage-resume-item">
-                          <h4><a href="#">John Williams</a><span className="dashboard-status-button yellow"><i className="icon-material-outline-business-center" /> Part Time</span></h4>
-                          <span className="utf-manage-resume-detail-item"><a href="#"><i className="icon-feather-mail" /> demo@example.com</a></span>
-                          <span className="utf-manage-resume-detail-item"><i className="icon-feather-phone" /> (+12) 0123-654-987</span>
-                          <span className="utf-manage-resume-detail-item"><a href="#"><i className="icon-material-outline-location-on" /> 2767 Concord Street</a></span>
-                          <div className="utf-buttons-to-right">
-                            <a href="#small-dialog" className="popup-with-zoom-anim button ripple-effect" title="Send Message" data-tippy-placement="top"><i className="icon-feather-mail" /> Send</a>
-                            <a href="#" className="button green ripple-effect ico" title="Download CV" data-tippy-placement="top"><i className="icon-feather-download" /></a>
-                            <a href="#" className="button red ripple-effect ico" title="Remove" data-tippy-placement="top"><i className="icon-feather-trash-2" /></a>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </li>
-                  <li>
-                    <div className="utf-manage-resume-overview-aera utf-manage-candidate">
-                      <div className="utf-manage-resume-overview-aera-inner">
-                        <div className="utf-manage-resume-avatar">
-                          <a href="#"><img src="images/user_big_3.jpg" alt /></a>
-                        </div>
-                        <div className="utf-manage-resume-item">
-                          <h4><a href="#">John Williams</a><span className="utf-verified-badge" data-tippy-placement="top" title="Verified Employer" data-tippy /><span className="dashboard-status-button green"><i className="icon-material-outline-business-center" /> Full Time</span></h4>
-                          <span className="utf-manage-resume-detail-item"><a href="#"><i className="icon-feather-mail" /> demo@example.com</a></span>
-                          <span className="utf-manage-resume-detail-item"><i className="icon-feather-phone" /> (+12) 0123-654-987</span>
-                          <span className="utf-manage-resume-detail-item"><a href="#"><i className="icon-material-outline-location-on" /> 2767 Concord Street</a></span>
-                          <div className="utf-buttons-to-right">
-                            <a href="#small-dialog" className="popup-with-zoom-anim button ripple-effect" title="Send Message" data-tippy-placement="top"><i className="icon-feather-mail" /> Send</a>
-                            <a href="#" className="button green ripple-effect ico" title="Download CV" data-tippy-placement="top"><i className="icon-feather-download" /></a>
-                            <a href="#" className="button red ripple-effect ico" title="Remove" data-tippy-placement="top"><i className="icon-feather-trash-2" /></a>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </li>
-                  <li>
-                    <div className="utf-manage-resume-overview-aera utf-manage-candidate">
-                      <div className="utf-manage-resume-overview-aera-inner">
-                        <div className="utf-manage-resume-avatar">
-                          <a href="#"><img src="images/user_big_1.jpg" alt /></a>
-                        </div>
-                        <div className="utf-manage-resume-item">
-                          <h4><a href="#">John Williams</a><span className="dashboard-status-button yellow"><i className="icon-material-outline-business-center" /> Part Time</span></h4>
-                          <span className="utf-manage-resume-detail-item"><a href="#"><i className="icon-feather-mail" /> demo@example.com</a></span>
-                          <span className="utf-manage-resume-detail-item"><i className="icon-feather-phone" /> (+12) 0123-654-987</span>
-                          <span className="utf-manage-resume-detail-item"><a href="#"><i className="icon-material-outline-location-on" /> 2767 Concord Street</a></span>
-                          <div className="utf-buttons-to-right">
-                            <a href="#small-dialog" className="popup-with-zoom-anim button ripple-effect" title="Send Message" data-tippy-placement="top"><i className="icon-feather-mail" /> Send</a>
-                            <a href="#" className="button green ripple-effect ico" title="Download CV" data-tippy-placement="top"><i className="icon-feather-download" /></a>
-                            <a href="#" className="button red ripple-effect ico" title="Remove" data-tippy-placement="top"><i className="icon-feather-trash-2" /></a>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </li>
-                  <li>
-                    <div className="utf-manage-resume-overview-aera utf-manage-candidate">
-                      <div className="utf-manage-resume-overview-aera-inner">
-                        <div className="utf-manage-resume-avatar">
-                          <a href="#"><img src="images/user_big_2.jpg" alt /></a>
-                        </div>
-                        <div className="utf-manage-resume-item">
-                          <h4><a href="#">John Williams</a><span className="utf-verified-badge" data-tippy-placement="top" title="Verified Employer" data-tippy /><span className="dashboard-status-button yellow"><i className="icon-material-outline-business-center" /> Part Time</span></h4>
-                          <span className="utf-manage-resume-detail-item"><a href="#"><i className="icon-feather-mail" /> info@fairsjob.com</a></span>
-                          <span className="utf-manage-resume-detail-item"><i className="icon-feather-phone" /> (+91) 8750-299-299</span>
-                          <span className="utf-manage-resume-detail-item"><a href="#"><i className="icon-material-outline-location-on" /> 2767 Concord Street</a></span>
-                          <div className="utf-buttons-to-right">
-                            <a href="#small-dialog" className="popup-with-zoom-anim button ripple-effect" title="Send Message" data-tippy-placement="top"><i className="icon-feather-mail" /> Send</a>
-                            <a href="#" className="button green ripple-effect ico" title="Download CV" data-tippy-placement="top"><i className="icon-feather-download" /></a>
-                            <a href="#" className="button red ripple-effect ico" title="Remove" data-tippy-placement="top"><i className="icon-feather-trash-2" /></a>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </li>
-                </ul>
+                  </div>
+                </div>
               </div>
             </div>
-            {/* Pagination */}
-            <div className="clearfix" />
-            <div className="utf-pagination-container-aera margin-top-20 margin-bottom-0">
-              <nav className="pagination">
-                <ul>
-                  <li className="utf-pagination-arrow"><a href="#" className="ripple-effect"><i className="icon-material-outline-keyboard-arrow-left" /></a></li>
-                  <li><a href="#" className="ripple-effect current-page">1</a></li>
-                  <li><a href="#" className="ripple-effect">2</a></li>
-                  <li><a href="#" className="ripple-effect">3</a></li>
-                  <li className="utf-pagination-arrow"><a href="#" className="ripple-effect"><i className="icon-material-outline-keyboard-arrow-right" /></a></li>
-                </ul>
-              </nav>
-            </div>
-            <div className="clearfix" />
           </div>
         </div>
-    </Fragment>
-    // <div className="p-4 border rounded-lg shadow-lg max-w-md mx-auto">
-    //   <h2 className="text-xl font-bold mb-4">Upload Your Resume</h2>
-    //   <input type="file" accept=".pdf,.doc,.docx" onChange={handleFileChange} />
-
-    //   {file && (
-    //     <div className="mt-4">
-    //       <p><strong>File Name:</strong> {file.name}</p>
-    //       <p><strong>File Type:</strong> {file.type}</p>
-    //       {file.type === 'application/pdf' && (
-    //         <iframe
-    //           src={fileURL}
-    //           title="Resume Preview"
-    //           width="100%"
-    //           height="500px"
-    //           className="mt-4 border"
-    //         />
-    //       )}
-    //       {file.type !== 'application/pdf' && (
-    //         <a href={fileURL} download className="text-blue-600 underline mt-2 block">
-    //           Download Resume
-    //         </a>
-    //       )}
-    //     </div>
-    //   )}
-    // </div>
+      </div>
+      <div className="col-xl-12">
+        <div className="dashboard-box">
+          <div className="headline d-flex">
+            <div className="col-xl-6">
+              <h3>Resume Headline</h3>
+            </div>
+            <div className="col-xl-6" style={{ textAlign: 'right' }}>
+              <Link onClick={downloadResume}>
+                <i className="icon-material-outline-business-right" /> Edit Resume HeadLine
+              </Link>
+            </div>
+          </div>
+          <div className="content with-padding padding-bottom-10">
+            <div className="row">
+              <div className="col-xl-6 col-md-6 col-sm-6">
+                <div className="utf-submit-field datepicker">
+                  <h5>Birth Date</h5>
+                  <input className="utf-with-border" type="date" />
+                </div>
+              </div>
+              <div className="col-xl-6 col-md-6 col-sm-6">
+                <div className="utf-submit-field">
+                  <h5>Address</h5>
+                  <input type="text" className="utf-with-border" placeholder="Address" />
+                </div>
+              </div>
+              <div className="col-xl-6 col-md-6 col-sm-6">
+                <div className="utf-submit-field">
+                  <h5>City</h5>
+                  <select className="selectpicker utf-with-border" data-size={7} title="Select City">
+                    <option>Allahabad</option>
+                    <option>Faizabad</option>
+                    <option>Sultanpur</option>
+                    <option>Pratapgarh</option>
+                    <option>Basti</option>
+                  </select>
+                </div>
+              </div>
+              <div className="col-xl-6 col-md-6 col-sm-6">
+                <div className="utf-submit-field">
+                  <h5>State</h5>
+                  <select className="selectpicker utf-with-border" data-size={7} title="Select State">
+                    <option>Allahabad</option>
+                    <option>Faizabad</option>
+                    <option>Sultanpur</option>
+                    <option>Pratapgarh</option>
+                    <option>Basti</option>
+                  </select>
+                </div>
+              </div>
+              <div className="col-xl-6 col-md-6 col-sm-6">
+                <div className="utf-submit-field">
+                  <h5>Country</h5>
+                  <select className="selectpicker utf-with-border" data-size={7} title="Select Country">
+                    <option>Allahabad</option>
+                    <option>Faizabad</option>
+                    <option>Sultanpur</option>
+                    <option>Pratapgarh</option>
+                    <option>Basti</option>
+                  </select>
+                </div>
+              </div>
+              <div className="col-xl-6 col-md-6 col-sm-6">
+                <div className="utf-submit-field">
+                  <h5>Zip Code</h5>
+                  <input type="text" className="utf-with-border" placeholder={+91 - 8750 - 299 - 299} />
+                </div>
+              </div>
+              <div className="col-xl-6 col-md-6 col-sm-6">
+                <div className="utf-submit-field">
+                  <h5>Father Name</h5>
+                  <input type="text" className="utf-with-border" placeholder="Father Name" />
+                </div>
+              </div>
+              <div className="col-xl-6 col-md-6 col-sm-6">
+                <div className="utf-submit-field">
+                  <h5>Hobbies(With Comma)</h5>
+                  <input type="text" className="utf-with-border" placeholder="Hobbies(With Comma)" />
+                </div>
+              </div>
+              <div className="col-xl-12 col-md-12 col-sm-12">
+                <div className="utf-submit-field">
+                  <h5>Job Description</h5>
+                  <textarea cols={20} rows={2} className="utf-with-border" placeholder="Job Description..." defaultValue={""} />
+                </div>
+              </div>
+            </div>
+            <Link
+              onClick={handleUpload}
+              className={`button ripple-effect big margin-top-10 margin-bottom-20 ${uploading ? 'disabled' : ''
+                }`}
+            >
+              <i className="icon-material-outline-business-center" />{' '}
+              {uploading ? 'Uploading...' : 'Save Changes'}
+            </Link>
+          </div>
+        </div>
+      </div>
+    </div>
   );
-};
+}
 
-export default ResumeUploader;
+export default ManageResume;

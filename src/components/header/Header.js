@@ -173,6 +173,11 @@ const renderMenu = (items) => {
                             <i className="icon-feather-user" /> My Profile
                           </Link>
                         </li>
+                         <li>
+                          <Link to={`/${userType}/change-password`}>
+                            <i className="icon-feather-user" /> Change Password
+                          </Link>
+                        </li>
                         <li>
                           <Link onClick={handleLogout}>
                             <i className="icon-material-outline-power-settings-new" /> Logout
