@@ -1,10 +1,9 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import placeholder from "../../assets/images/user-avatar-placeholder.png";
 import { useDispatch, useSelector } from 'react-redux';
 import { uploadResume, removeResume, uploadResumeToApi, downloadResumeFromApi } from '../../features/resumeSlice';
-import resumeHeadline from './resumeHeadline';
 
 function ManageResume() {
   const fileInputRef = useRef(null);
@@ -13,6 +12,7 @@ function ManageResume() {
   const uploading = useSelector((state) => state.resume.uploading);
   const { user } = useSelector((state) => state.auth);
   const error = useSelector((state) => state.resume.error);
+  const[resumeHeadline, setResumeHeadline] = useState(null);
 
   const handleImageClick = () => {
     fileInputRef.current.click();
@@ -55,6 +55,10 @@ function ManageResume() {
     toast.success('Resume file removed.');
   };
 
+  const updateHeadline = () =>{
+    setResumeHeadline(!resumeHeadline);
+  }
+
   return (
     <div className="row">
       <div className="col-xl-12">
@@ -64,9 +68,7 @@ function ManageResume() {
               <h3>My Profile Details</h3>
             </div>
             <div className="col-xl-6" style={{ textAlign: 'right' }}>
-              <Link onClick={downloadResume}>
-                <i className="icon-material-outline-business-right" /> Download Resume
-              </Link>
+              <Link onClick={downloadResume} style={{"color":"white"}}><i className="icon-material-outline-business-right" /> Download Resume </Link>
             </div>
           </div>
 
@@ -131,103 +133,29 @@ function ManageResume() {
       </div>
       <div className="col-xl-12">
         <div className="dashboard-box">
-          <div className="headline d-flex">
-            <div className="col-xl-6">
-              <h3>Resume Headline</h3>
-            </div>
-            <div className="col-xl-6" style={{ textAlign: 'right' }}>
-              <Link onClick={downloadResume}>
-                <i className="icon-material-outline-business-right" /> Edit Resume HeadLine
-              </Link>
-            </div>
-          </div>
-          <div className="content with-padding padding-bottom-10">
-            <div className="row">
-              <div className="col-xl-6 col-md-6 col-sm-6">
-                <div className="utf-submit-field datepicker">
-                  <h5>Birth Date</h5>
-                  <input className="utf-with-border" type="date" />
-                </div>
-              </div>
-              <div className="col-xl-6 col-md-6 col-sm-6">
-                <div className="utf-submit-field">
-                  <h5>Address</h5>
-                  <input type="text" className="utf-with-border" placeholder="Address" />
-                </div>
-              </div>
-              <div className="col-xl-6 col-md-6 col-sm-6">
-                <div className="utf-submit-field">
-                  <h5>City</h5>
-                  <select className="selectpicker utf-with-border" data-size={7} title="Select City">
-                    <option>Allahabad</option>
-                    <option>Faizabad</option>
-                    <option>Sultanpur</option>
-                    <option>Pratapgarh</option>
-                    <option>Basti</option>
-                  </select>
-                </div>
-              </div>
-              <div className="col-xl-6 col-md-6 col-sm-6">
-                <div className="utf-submit-field">
-                  <h5>State</h5>
-                  <select className="selectpicker utf-with-border" data-size={7} title="Select State">
-                    <option>Allahabad</option>
-                    <option>Faizabad</option>
-                    <option>Sultanpur</option>
-                    <option>Pratapgarh</option>
-                    <option>Basti</option>
-                  </select>
-                </div>
-              </div>
-              <div className="col-xl-6 col-md-6 col-sm-6">
-                <div className="utf-submit-field">
-                  <h5>Country</h5>
-                  <select className="selectpicker utf-with-border" data-size={7} title="Select Country">
-                    <option>Allahabad</option>
-                    <option>Faizabad</option>
-                    <option>Sultanpur</option>
-                    <option>Pratapgarh</option>
-                    <option>Basti</option>
-                  </select>
-                </div>
-              </div>
-              <div className="col-xl-6 col-md-6 col-sm-6">
-                <div className="utf-submit-field">
-                  <h5>Zip Code</h5>
-                  <input type="text" className="utf-with-border" placeholder={+91 - 8750 - 299 - 299} />
-                </div>
-              </div>
-              <div className="col-xl-6 col-md-6 col-sm-6">
-                <div className="utf-submit-field">
-                  <h5>Father Name</h5>
-                  <input type="text" className="utf-with-border" placeholder="Father Name" />
-                </div>
-              </div>
-              <div className="col-xl-6 col-md-6 col-sm-6">
-                <div className="utf-submit-field">
-                  <h5>Hobbies(With Comma)</h5>
-                  <input type="text" className="utf-with-border" placeholder="Hobbies(With Comma)" />
-                </div>
-              </div>
-              <div className="col-xl-12 col-md-12 col-sm-12">
-                <div className="utf-submit-field">
-                  <h5>Job Description</h5>
-                  <textarea cols={20} rows={2} className="utf-with-border" placeholder="Job Description..." defaultValue={""} />
-                </div>
-              </div>
-            </div>
-            <Link
-              onClick={handleUpload}
-              className={`button ripple-effect big margin-top-10 margin-bottom-20 ${uploading ? 'disabled' : ''
-                }`}
-            >
-              <i className="icon-material-outline-business-center" />{' '}
-              {uploading ? 'Uploading...' : 'Save Changes'}
-            </Link>
-          </div>
+          <div className="headline d-flex justify-content-between align-items-center">
+            <h3>Resume Headline</h3>
+            <Link onClick={updateHeadline} style={{"color":"white"}}>{!resumeHeadline ? "Updated" : "Close"}</Link>      
         </div>
+        {resumeHeadline ? (
+          <div className="content with-padding padding-bottom-10">
+          <div className="row">
+            <div className="col-xl-12 col-md-12 col-sm-12">
+              <div className="utf-submit-field">
+                <h5>Resume Headline</h5>
+                <textarea cols={20} rows={2} className="utf-with-border" placeholder="Resume Headline ..." defaultValue={""} />
+              </div>
+            </div>
+          </div>
+          <Link onClick={handleUpload} className={`button margin-top-10 margin-bottom-20 ${uploading ? 'disabled' : ''}`} >{uploading ? 'Uploading...' : 'Save Changes'}</Link>
+        </div>
+        ) : (          
+          <div>dszdasdasda</div>
+        )}
+       
       </div>
     </div>
+    </div >
   );
 }
 

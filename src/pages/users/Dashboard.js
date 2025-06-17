@@ -9,9 +9,10 @@ import br from "../../assets/images/flags/br.svg";
 import Donutchart from '../../components/chart/Donutchart';
 import Piechart from '../../components/chart/Piechart';
 import LineChart from '../../components/chart/LineChart';
+// import { useSelector } from 'react-redux';
 
 const Dashboard = () => {
-
+//  const user = useSelector((state) => state.auth.user);
   return (
     <Fragment>
       <div className="notification success closeable">

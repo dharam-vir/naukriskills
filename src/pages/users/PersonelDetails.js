@@ -1,285 +1,218 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
-const PersonelDetails = () => {
+const PersonalDetails = () => {
+  const [popUp, setPopUp] = useState(false);
+  const [personalPopUp, setPersonalPopUp] = useState(false);
+  const [socialAccountsPopUp, setSocialAccountsPopUp] = useState(false);
+  const user = useSelector((state) => state.auth.user);
+
+  const updateGeneralInfo = () => {
+    setPopUp(!popUp);
+  };
+   const updatePersonalDetail = () => {
+    setPersonalPopUp(!personalPopUp);
+  };
+  
+const updateSocialAccounts = () => {
+   setSocialAccountsPopUp(!socialAccountsPopUp);
+}
   return (
     <Fragment>
-        <div className="row">
-          <div className="col-xl-12">
-            <div className="dashboard-box">
-              <div className="headline">
-                <h3>General Information</h3>
-              </div>
-              <div className="content with-padding padding-bottom-10">
-                <div className="row">
-                  <div className="col-xl-6 col-md-6 col-sm-6">
-                    <div className="utf-submit-field">
-                      <h5>First Name</h5>
-                      <input type="text" className="utf-with-border" placeholder="First Name" />
-                    </div>
-                  </div>
-                  <div className="col-xl-6 col-md-6 col-sm-6">
-                    <div className="utf-submit-field">
-                      <h5>Last Name</h5>
-                      <input type="text" className="utf-with-border" placeholder="Last Name" />
-                    </div>
-                  </div>
-                  <div className="col-xl-6 col-md-6 col-sm-6">
-                    <div className="utf-submit-field">
-                      <h5>Email Address</h5>
-                      <input type="email" className="utf-with-border" placeholder="Email Address" />
-                    </div>
-                  </div>
-                  <div className="col-xl-6 col-md-6 col-sm-6">
-                    <div className="utf-submit-field">
-                      <h5>Phone Number</h5>
-                      <input type="text" className="utf-with-border" placeholder="Phone Number" />
-                    </div>
-                  </div>
-                  <div className="col-xl-6 col-md-6 col-sm-6">
-                    <div className="utf-submit-field">
-                      <h5>Designation</h5>
-                      <input type="text" className="utf-with-border" placeholder="Designation" />
-                    </div>
-                  </div>
-                  <div className="col-xl-6 col-md-6 col-sm-6">
-                    <div className="utf-submit-field">
-                      <h5>Job Category</h5>
-                      <select className="selectpicker utf-with-border" data-size={7} title="Select Category">
-                        <option>Accounting and Finance</option>
-                        <option>Clerical &amp; Data Entry</option>
-                        <option>Counseling</option>
-                        <option>Court Administration</option>
-                        <option>Human Resources</option>
-                        <option>Investigative</option>
-                        <option>IT and Computers</option>
-                        <option>Law Enforcement</option>
-                        <option>Management</option>
-                        <option>Miscellaneous</option>
-                        <option>Public Relations</option>
-                      </select>
-                    </div>
-                  </div>
-                  <div className="col-xl-6 col-md-6 col-sm-6">
-                    <div className="utf-submit-field">
-                      <h5>Experience</h5>
-                      <select className="selectpicker utf-with-border" data-value="0 To 6 Years" data-size={7} title="Select Experience">
-                        <option>1 Year</option>
-                        <option>1.5 Year</option>
-                        <option>2 Year</option>
-                        <option>2.5 Year</option>
-                        <option>3 Year</option>
-                      </select>
-                    </div>
-                  </div>
-                  <div className="col-xl-6 col-md-6 col-sm-6">
-                    <div className="utf-submit-field">
-                      <h5>Job Type</h5>
-                      <select className="selectpicker utf-with-border" data-size={7} title="Select Job Type">
-                        <option>Full Time Jobs</option>
-                        <option>Part Time Jobs</option>
-                        <option>Work Form Home</option>
-                        <option>Internship Jobs</option>
-                        <option>Temporary Jobs</option>
-                      </select>
-                    </div>
-                  </div>
-                  <div className="col-xl-6 col-md-6 col-sm-6">
-                    <div className="utf-submit-field">
-                      <h5>Location</h5>
-                      <div className="utf-input-with-icon">
-                        <input className="utf-with-border" type="text" placeholder="Type Address" />
-                        <i className="icon-material-outline-location-on" />
-                      </div>
-                    </div>
-                  </div>
-                  <div className="col-xl-6 col-md-6 col-sm-6">
-                    <div className="utf-submit-field">
-                      <h5>Monthly Salary</h5>
-                      <div className="row">
-                        <div className="col-xl-6 col-md-6 col-sm-6">
-                          <div className="utf-input-with-icon">
-                            <input className="utf-with-border" type="text" placeholder="Min Salary" />
-                            <i className="currency">USD</i>
-                          </div>
-                        </div>
-                        <div className="col-xl-6 col-md-6 col-sm-6">
-                          <div className="utf-input-with-icon">
-                            <input className="utf-with-border" type="text" placeholder="Max Salary" />
-                            <i className="currency">USD</i>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="col-xl-12 col-md-12 col-sm-12">
-                    <div className="utf-submit-field">
-                      <h5>Job Skills <i className="help-icon" data-tippy-placement="top" title="Maximum of 6 Skills" /></h5>
-                      <div className="keywords-container">
-                        <div className="keyword-input-container">
-                          <input type="text" className="keyword-input utf-with-border" placeholder="CSS, Photoshop, Js, Bootstrap" />
-                          <button className="keyword-input-button ripple-effect"><i className="icon-material-outline-add" /></button>
-                        </div>
-                        <div className="keywords-list">{/* keywords go here */}</div>
-                        <div className="clearfix" />
-                      </div>
-                    </div>
-                  </div>
-                  <div className="col-xl-12 col-md-12 col-sm-12">
-                    <div className="utf-submit-field">
-                      <h5>Upload Resume</h5>
-                      <div className="uploadButton margin-top-15 margin-bottom-30">
-                        <input className="uploadButton-input" type="file" accept="image/*, application/pdf" id="upload" multiple />
-                        <label className="uploadButton-button ripple-effect" htmlFor="upload">Upload Resume</label>
-                        <span className="uploadButton-file-name">Upload Resume (Docx, Doc, PDF) File.</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="col-xl-12 col-md-12 col-sm-12">
-                    <div className="utf-submit-field">
-                      <h5>Career Description</h5>
-                      <textarea cols={40} rows={2} className="utf-with-border" placeholder="Career Description..." defaultValue={""} />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="col-xl-12">
-            <div className="dashboard-box">
-              <div className="headline">
-                <h3>Personal Detail &amp; Address</h3>
-              </div>
-              <div className="content with-padding padding-bottom-10">
-                <div className="row">
-                  <div className="col-xl-6 col-md-6 col-sm-6">
-                    <div className="utf-submit-field datepicker">
-                      <h5>Birth Date</h5>
-                      <input className="utf-with-border" type="date" />
-                    </div>
-                  </div>
-                  <div className="col-xl-6 col-md-6 col-sm-6">
-                    <div className="utf-submit-field">
-                      <h5>Address</h5>
-                      <input type="text" className="utf-with-border" placeholder="Address" />
-                    </div>
-                  </div>
-                  <div className="col-xl-6 col-md-6 col-sm-6">
-                    <div className="utf-submit-field">
-                      <h5>City</h5>
-                      <select className="selectpicker utf-with-border" data-size={7} title="Select City">
-                        <option>Allahabad</option>
-                        <option>Faizabad</option>
-                        <option>Sultanpur</option>
-                        <option>Pratapgarh</option>
-                        <option>Basti</option>
-                      </select>
-                    </div>
-                  </div>
-                  <div className="col-xl-6 col-md-6 col-sm-6">
-                    <div className="utf-submit-field">
-                      <h5>State</h5>
-                      <select className="selectpicker utf-with-border" data-size={7} title="Select State">
-                        <option>Allahabad</option>
-                        <option>Faizabad</option>
-                        <option>Sultanpur</option>
-                        <option>Pratapgarh</option>
-                        <option>Basti</option>
-                      </select>
-                    </div>
-                  </div>
-                  <div className="col-xl-6 col-md-6 col-sm-6">
-                    <div className="utf-submit-field">
-                      <h5>Country</h5>
-                      <select className="selectpicker utf-with-border" data-size={7} title="Select Country">
-                        <option>Allahabad</option>
-                        <option>Faizabad</option>
-                        <option>Sultanpur</option>
-                        <option>Pratapgarh</option>
-                        <option>Basti</option>
-                      </select>
-                    </div>
-                  </div>
-                  <div className="col-xl-6 col-md-6 col-sm-6">
-                    <div className="utf-submit-field">
-                      <h5>Zip Code</h5>
-                      <input type="text" className="utf-with-border" placeholder={+91-8750-299-299} />
-                    </div>
-                  </div>
-                  <div className="col-xl-6 col-md-6 col-sm-6">
-                    <div className="utf-submit-field">
-                      <h5>Father Name</h5>
-                      <input type="text" className="utf-with-border" placeholder="Father Name" />
-                    </div>
-                  </div>
-                  <div className="col-xl-6 col-md-6 col-sm-6">
-                    <div className="utf-submit-field">
-                      <h5>Hobbies(With Comma)</h5>
-                      <input type="text" className="utf-with-border" placeholder="Hobbies(With Comma)" />
-                    </div>
-                  </div>
-                  <div className="col-xl-12 col-md-12 col-sm-12">
-                    <div className="utf-submit-field">
-                      <h5>Job Description</h5>
-                      <textarea cols={20} rows={2} className="utf-with-border" placeholder="Job Description..." defaultValue={""} />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="col-xl-12">
-            <div className="dashboard-box">
-              <div className="headline">
-                <h3>Social Accounts</h3>
-              </div>
-              <div className="content with-padding padding-bottom-10">
-                <div className="row">
-                  <div className="col-xl-6 col-md-6 col-sm-12">
-                    <div className="utf-submit-field">
-                      <h5><i className="icon-brand-facebook" /> Facebook</h5>
-                      <input type="text" className="utf-with-border" placeholder="https://www.facebook.com/" />
-                    </div>
-                  </div>
-                  <div className="col-xl-6 col-md-6 col-sm-12">
-                    <div className="utf-submit-field">
-                      <h5><i className="icon-brand-twitter" /> Twitter</h5>
-                      <input type="text" className="utf-with-border" placeholder="https://twitter.com/" />
-                    </div>
-                  </div>
-                  <div className="col-xl-6 col-md-6 col-sm-12">
-                    <div className="utf-submit-field">
-                      <h5><i className="icon-brand-linkedin" /> LinkedIn</h5>
-                      <input type="text" className="utf-with-border" placeholder="https://www.linkedin.com/" />
-                    </div>
-                  </div>
-                  <div className="col-xl-6 col-md-6 col-sm-12">
-                    <div className="utf-submit-field">
-                      <h5><i className="icon-brand-google" /> Google +</h5>
-                      <input type="text" className="utf-with-border" placeholder="https://www.google.com/" />
-                    </div>
-                  </div>
-                  <div className="col-xl-6 col-md-6 col-sm-12">
-                    <div className="utf-submit-field">
-                      <h5><i className="icon-brand-pinterest" /> Pinterest</h5>
-                      <input type="text" className="utf-with-border" placeholder="https://www.pinterest.com/" />
-                    </div>
-                  </div>
-                  <div className="col-xl-6 col-md-6 col-sm-12">
-                    <div className="utf-submit-field">
-                      <h5><i className="icon-feather-instagram" /> Instagram</h5>
-                      <input type="text" className="utf-with-border" placeholder="https://www.instagram.com/" />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="utf-centered-button">
-          <a href="javascript:void(0);" className="button utf-ripple-effect-dark utf-button-sliding-icon margin-top-0">Submit Jobs <i className="icon-feather-plus" /></a>
-        </div>
-    </Fragment>
-  )
-}
+      <div className="row">
 
-export default PersonelDetails
+        {/* General Information */}
+        <div className="col-xl-12">
+          <div className="dashboard-box">
+            <div className="headline d-flex justify-content-between align-items-center">
+              <h3>General Information</h3>
+              <Link to="#" onClick={updateGeneralInfo}>
+                {popUp ? 'Close' : 'Update'}
+              </Link>
+            </div>
+
+            <div className="content with-padding padding-bottom-10">
+              {!popUp ? (
+                <div className="row">
+                  <div className="col-xl-6">
+                    <p><strong>First Name:</strong> {user?.name || '-'}</p>
+                  </div>
+                  <div className="col-xl-6">
+                    <p><strong>Last Name:</strong> {user?.lastName || '-'}</p>
+                  </div>
+                  <div className="col-xl-6">
+                    <p><strong>Email Address:</strong> {user?.email || '-'}</p>
+                  </div>
+                  <div className="col-xl-6">
+                    <p><strong>Phone Number:</strong> {user?.mobilno || '-'}</p>
+                  </div>
+                  <div className="col-xl-6">
+                    <p><strong>Designation:</strong> {user?.designation || '-'}</p>
+                  </div>
+                  <div className="col-xl-6">
+                    <p><strong>Location:</strong> {user?.location || '-'}</p>
+                  </div>
+                  <div className="col-xl-6">
+                    <p><strong>Preferred Location:</strong> {user?.preLocation || '-'}</p>
+                  </div>
+                  <div className="col-xl-6">
+                    <p><strong>Address:</strong> {user?.address || '-'}</p>
+                  </div>
+                </div>
+              ) : (
+                <div className="row">
+                  <div className="col-xl-6">
+                    <label>First Name</label>
+                    <input className="utf-with-border" type="text" defaultValue={user?.name} />
+                  </div>
+                  <div className="col-xl-6">
+                    <label>Last Name</label>
+                    <input className="utf-with-border" type="text" defaultValue={user?.lastName} />
+                  </div>
+                  <div className="col-xl-6">
+                    <label>Email Address</label>
+                    <input className="utf-with-border" type="email" defaultValue={user?.email} />
+                  </div>
+                  <div className="col-xl-6">
+                    <label>Phone Number</label>
+                    <input className="utf-with-border" type="text" defaultValue={user?.mobilno} />
+                  </div>
+                  <div className="col-xl-6">
+                    <label>Designation</label>
+                    <input className="utf-with-border" type="text" defaultValue={user?.designation} />
+                  </div>
+                  <div className="col-xl-6">
+                    <label>Location</label>
+                    <input className="utf-with-border" type="text" defaultValue={user?.location} />
+                  </div>
+                  <div className="col-xl-6">
+                    <label>Preferred Location</label>
+                    <input className="utf-with-border" type="text" defaultValue={user?.preLocation} />
+                  </div>
+                  <div className="col-xl-6">
+                    <label>Address</label>
+                    <input className="utf-with-border" type="text" defaultValue={user?.address} />
+                  </div>
+
+                  <div className="col-xl-12 text-end mt-3">
+                    <button className="button utf-ripple-effect-dark" onClick={updateGeneralInfo}>
+                      Save & Close
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+
+
+        {/* Personal Detail & Address */}
+        <div className="col-xl-12">
+          <div className="dashboard-box">
+            <div className="headline d-flex justify-content-between align-items-center">
+              <h3>Personal Detail & Address</h3>
+              <Link onClick={updatePersonalDetail}>
+                {personalPopUp ? 'Close' : 'Update'}
+              </Link>
+            </div>           
+            <div className="content with-padding padding-bottom-10">
+              {!personalPopUp ? (
+                <div>sdadasd</div>
+              ) : (
+                <div className="row">
+                <div className="col-xl-6">
+                  <label>Birth Date</label>
+                  <input className="utf-with-border" type="date" />
+                </div>
+                <div className="col-xl-6">
+                  <label>Address</label>
+                  <input className="utf-with-border" type="text" placeholder="Address" />
+                </div>
+                <div className="col-xl-6">
+                  <label>City</label>
+                  <select className="selectpicker utf-with-border">
+                    <option>Allahabad</option>
+                    <option>Faizabad</option>
+                  </select>
+                </div>
+                <div className="col-xl-6">
+                  <label>State</label>
+                  <select className="selectpicker utf-with-border">
+                    <option>Uttar Pradesh</option>
+                    <option>Delhi</option>
+                  </select>
+                </div>
+                <div className="col-xl-6">
+                  <label>Country</label>
+                  <select className="selectpicker utf-with-border">
+                    <option>India</option>
+                    <option>USA</option>
+                  </select>
+                </div>
+                <div className="col-xl-6">
+                  <label>Zip Code</label>
+                  <input className="utf-with-border" type="text" placeholder="110001" />
+                </div>
+                <div className="col-xl-6">
+                  <label>Father Name</label>
+                  <input className="utf-with-border" type="text" placeholder="Father's Name" />
+                </div>
+                <div className="col-xl-6">
+                  <label>Hobbies (comma-separated)</label>
+                  <input className="utf-with-border" type="text" placeholder="Reading, Traveling" />
+                </div>
+                <div className="col-xl-12">
+                  <label>Job Description</label>
+                  <textarea className="utf-with-border" rows={3} placeholder="Describe job responsibilities..."></textarea>
+                </div>
+              </div>
+              )}             
+            </div>
+          </div>
+        </div>
+
+        {/* Social Accounts d-flex justify-content-between align-items-center */}
+        <div className="col-xl-12">
+          <div className="dashboard-box">
+            <div className="headline d-flex justify-content-between align-items-center">
+              <h3>Social Accounts</h3>
+              <Link onClick={updateSocialAccounts}>{ socialAccountsPopUp ? 'Close' : 'Update'}</Link>
+            </div>
+            <div className="content with-padding padding-bottom-10">
+              {!socialAccountsPopUp ? (
+                <div>sdsdsdsdsds</div>
+              ) : (
+                <div className="row">
+                {[
+                  { label: 'Facebook', icon: 'icon-brand-facebook', placeholder: 'https://www.facebook.com/' },
+                  { label: 'Twitter', icon: 'icon-brand-twitter', placeholder: 'https://twitter.com/' },
+                  { label: 'LinkedIn', icon: 'icon-brand-linkedin', placeholder: 'https://www.linkedin.com/' },
+                  { label: 'Google+', icon: 'icon-brand-google', placeholder: 'https://www.google.com/' },
+                  { label: 'Pinterest', icon: 'icon-brand-pinterest', placeholder: 'https://www.pinterest.com/' },
+                  { label: 'Instagram', icon: 'icon-feather-instagram', placeholder: 'https://www.instagram.com/' },
+                ].map((social, index) => (
+                  <div className="col-xl-6" key={index}>
+                    <label><i className={social.icon}></i> {social.label}</label>
+                    <input type="text" className="utf-with-border" placeholder={social.placeholder} />
+                  </div>
+                ))}
+              </div>
+              )}
+             
+            </div>
+          </div>
+        </div>
+
+        {/* Submit Button */}
+        <div className="utf-centered-button">
+          <button className="button utf-ripple-effect-dark utf-button-sliding-icon margin-top-0">
+            Submit Jobs <i className="icon-feather-plus" />
+          </button>
+        </div>
+      </div>
+    </Fragment>
+  );
+};
+
+export default PersonalDetails;

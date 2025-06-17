@@ -1,16 +1,26 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useState } from 'react'
+import { Link } from 'react-router-dom';
 
 const CareerProfile = () => {
+  const[careerPopUp, setCareerPopUp] = useState(false);
+  const updateCarrerProfile = () => {
+    setCareerPopUp(!careerPopUp);
+  }
   return (
     <Fragment>
        <div className="row">
         <div className="col-xl-12">
           <div className="dashboard-box margin-top-0 margin-bottom-30">
-            <div className="headline">
+              <div className="headline d-flex justify-content-between align-items-center">
               <h3>Career Profile</h3>
+             <Link onClick={updateCarrerProfile}>{ careerPopUp ? 'Close' : 'Update'}</Link>
             </div>
             <div className="content with-padding padding-bottom-0">
-              <div className="row">
+             {!careerPopUp ? (
+              <div>dfgdfgfdg</div>
+             ) : (
+                <div>
+                  <div className="row">
                 <div className="col">
                   <div className="row">                 
                     <div className="col-xl-6 col-md-6 col-sm-6">
@@ -64,7 +74,9 @@ const CareerProfile = () => {
                   </div>
                 </div>
               </div>
-              <a href="javascript:void(0);" className="button ripple-effect big margin-top-10 margin-bottom-20">Save Changes</a>
+              <Link className="button ripple-effect big margin-top-10 margin-bottom-20">Save Changes</Link>
+                </div>
+             )}
             </div>
           </div>
         </div>      

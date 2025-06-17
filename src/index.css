@@ -1,5 +1,5 @@
 @charset "UTF-8";
-@import url('./assets/css/bootstrap-grid.css');
+/* @import url('./assets/css/bootstrap-grid.css'); */
 @import url('./assets/css/icons.css');
 @import url('https://fonts.googleapis.com/css?family=Nunito:300,400,600,700,800&amp;display=swap');
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800&amp;display=swap');
@@ -700,6 +700,7 @@ ul.utf-user-menu-dropdown-nav li a {
 	padding: 2px 0;
 	font-size: 16px;
 	color: #666;
+	text-decoration: auto;
 	transition: 0.3s;
 }
 ul.utf-user-menu-dropdown-nav li a i {
@@ -13867,6 +13868,7 @@ a.utf-dashboard-responsive-trigger-item {
 	transition: 0.3s;
 	cursor: pointer;
 	position: relative;
+	text-decoration:auto;
 }
 .utf-dashboard-nav ul li a i {
 	padding: 8px;
