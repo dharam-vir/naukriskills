@@ -159,7 +159,7 @@ const KeySkills = () => {
           </div>
         </div>
       </div>
-    </Fragment>
+    </Fragment> 
   );
 };
 
